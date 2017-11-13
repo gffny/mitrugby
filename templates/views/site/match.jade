@@ -1,0 +1,10 @@
+extends ../../layouts/default
+
+include ../../mixins/match
+
+block content
+	.container-sm
+		.page-intro.text-left
+			a(href='/matches').text-muted &larr; Back to all matches
+		.page-content
+			+match(match)

@@ -1,0 +1,35 @@
+extends ../../layouts/default
+
+include ../../mixins/matchreport
+
+block intro
+	.container-sm
+		.page-intro
+			h1.page-title Match Reports
+			p.lead We usually have practices on Tuesdays and Thursdays. We hope to see you at
+				if !user
+					a(href='/join').js-auth-trigger our&nbsp;next&nbsp;match
+				else
+					| our next match
+				| . Stay in the loop -
+				a(href='http://twitter.com/mitrugby', target='_blank') follow us on twitter
+
+block content
+	.page-content: .container
+		.timeline
+			.timeline-path
+			.timeline-item--offset
+			each matchReport, i in matchReports
+				.timeline-item(class=i % 2 == 1 ? 'timeline-item--even' : 'timeline-item--odd')
+					.timeline-item-node
+//					a(href=matchReport.url).timeline-item-inner
+						h6.text-caps.text-danger= matchReport.title
+						//h4= matchReport.match.opponent
+						!=utils.cropString( utils.htmlToText(matchReport.description), 240, '...', true )
+						//- !=utils.htmlToText(matchReport.description)
+
+
+//- block js
+	// twitter
+	script.
+		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");

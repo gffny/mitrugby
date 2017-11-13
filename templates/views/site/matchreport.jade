@@ -1,0 +1,10 @@
+extends ../../layouts/default
+
+include ../../mixins/matchreport
+
+block content
+	.container-sm
+		.page-intro.text-left
+			a(href='/matchreports').text-muted &larr; Back to all match reports
+		.page-content
+			+matchreport(matchreport)
