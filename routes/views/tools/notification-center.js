@@ -82,14 +82,14 @@ exports = module.exports = function(req, res) {
 			async.each(locals.subscribers, function(subscriber, doneSubscriber) {
 				new keystone.Email('member-notification').send({
 					subscriber: subscriber,
-					subject: req.body.subscriber_email_subject || 'Notification from SydJS',
+					subject: req.body.subscriber_email_subject || 'Notification from MIT Rugby',
 					content: req.body.subscriber_email_content,
 					link_label: req.body.subscriber_email_link_label,
 					link_url: req.body.subscriber_email_link_url,
 					to: subscriber.email,
 					from: {
-						name: 'SydJS',
-						email: 'hello@sydjs.com'
+						name: 'MIT Rugby',
+						email: 'admin@rugby.mit.edu'
 					}
 				}, doneSubscriber);
 			}, function(err) {

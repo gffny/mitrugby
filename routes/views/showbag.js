@@ -10,7 +10,7 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	locals.section = 'showbag';
-	locals.page.title = 'SydJS Showbag';
+	locals.page.title = 'MIT Rugby Showbag';
 
 	Organisation.model.findOne().where('key', 'thinkmill').exec(function(err, thinkmill) {
 		if (err || !thinkmill) {

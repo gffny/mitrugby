@@ -59,13 +59,13 @@ Post.schema.methods.notifyAdmins = function(callback) {
 				admin: admin.name.first || admin.name.full,
 				author: results.author ? results.author.name.full : 'Somebody',
 				title: post.title,
-				keystoneURL: 'http://www.sydjs.com/keystone/post/' + post.id,
-				subject: 'New Post to SydJS'
+				keystoneURL: 'http://rugby.mit.edu/keystone/post/' + post.id,
+				subject: 'New Post to MIT Rugby'
 			}, {
 				to: admin,
 				from: {
-					name: 'SydJS',
-					email: 'contact@sydjs.com'
+					name: 'MIT Rugby',
+					email: 'admin@rugby.mit.edu'
 				}
 			}, done);
 		}, callback);

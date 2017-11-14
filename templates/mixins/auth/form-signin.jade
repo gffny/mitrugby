@@ -11,7 +11,7 @@ mixin form-signin(args)
 		if args.modal
 			.modal-header
 				button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
-				h4.modal-title Sign into SydJS
+				h4.modal-title Sign into MIT Rugby
 		div(class=args.modal ? 'modal-body' : null)
 			include ../../includes/social-signin
 			p.auth-form-divider: span.auth-form-divider-text or
@@ -29,6 +29,6 @@ mixin form-signin(args)
 			
 			.row.text-muted.mt-3
 				.col-sm-8 Don't have an account? 
-					a(href=args.modal ? js : '/join', rel=args.modal ? 'modal-pane' : null, data-modal-pane=args.modal ? 'join' : null) Join SydJS
+					a(href=args.modal ? js : '/join', rel=args.modal ? 'modal-pane' : null, data-modal-pane=args.modal ? 'join' : null) Join MIT Rugby
 				.col-sm-4.text-right
 					a(href=args.modal ? js : '/forgot-password', rel=args.modal ? 'modal-pane' : null, data-modal-pane=args.modal ? 'password' : null) Forgot password?

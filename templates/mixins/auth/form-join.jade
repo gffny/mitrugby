@@ -11,7 +11,7 @@ mixin form-join(args)
 		if args.modal
 			.modal-header
 				button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
-				h4.modal-title Join SydJS
+				h4.modal-title Join MIT Rugby
 		div(class=args.modal ? 'modal-body' : null)
 			include ../../includes/social-signin
 			p.auth-form-divider: span.auth-form-divider-text or
@@ -44,10 +44,7 @@ mixin form-join(args)
 						input(type='email', name='email', placeholder='Email', value=!args.modal ? form.email : null).form-control
 					.form-group(class=!args.modal ? checkFormError('password') : null)
 						label(for='password').sr-only Password
-						input(type='password', name='password', placeholder='Password', value=!args.modal ? form.password : null).form-control
-					.form-group(class=!args.modal ? checkFormError('website') : null)
-						label(for='website').sr-only Website (optional)
-						input(type='website', name='website', placeholder='Website (optional)', value=!args.modal ? form.website : null).form-control.form-control--last
+						input(type='password', name='password', placeholder='Password', value=!args.modal ? form.password : null).form-control.form-control--last
 				button(type='submit').btn.btn-block.btn-primary.btn-submit Join
 		
 			p.text-center.text-muted.mt-3

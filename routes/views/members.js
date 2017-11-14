@@ -9,7 +9,7 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	locals.section = 'members';
-	locals.page.title = 'Members - SydJS';
+	locals.page.title = 'Members - MIT Rugby';
 
 
 	// Load Organisers
