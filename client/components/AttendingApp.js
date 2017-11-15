@@ -92,7 +92,7 @@ var AttendingApp = React.createClass({
     renderRSVPSignin: function() {
         return (
             <div className="hero-button">
-                <a className="btn btn-primary btn-lg btn-block js-auth-trigger" onClick={this.signinModalTrigger}>RSVP Now <span className="text-thin">({this.state.match.remainingRSVPs} spots left)</span></a>
+                <a className="btn btn-primary btn-lg btn-block js-auth-trigger" onClick={this.signinModalTrigger}>RSVP Now</a>
             </div>
         );
     },
