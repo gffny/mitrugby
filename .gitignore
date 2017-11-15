@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # IDEs
-.iml
+*.iml
 .idea/
 
 # Runtime data
