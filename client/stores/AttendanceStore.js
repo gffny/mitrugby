@@ -17,6 +17,8 @@ function cancelRefresh() {
 	clearTimeout(refreshTimeout);
 }
 
+var currentMatchId = '5a0a4e2a65b0398302084030';
+
 AttendanceStore.extend({
 
     getMatch: function() {
@@ -39,7 +41,7 @@ AttendanceStore.extend({
 		request
 			.post('/api/me/match')
 			.send({ data: {
-                match: SydJS.currentMeetupId,
+                match: MITRugby.currentMatchId, //currentMatchId,
 				attending: attending
 			}})
 			.end(function(err, res) {
@@ -66,7 +68,7 @@ AttendanceStore.extend({
         // request the update from the API
         busy = true;
         request
-            .get('/api/match/' + SydJS.currentMeetupId)
+            .get('/api/match/' + MITRugby.currentMatchId) // + currentMatchId)
             .end(function(err, res) {
                 if (err) {
                     console.log('Error with the AJAX request: ', err)

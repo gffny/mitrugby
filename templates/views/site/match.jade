@@ -3,8 +3,17 @@ extends ../../layouts/default
 include ../../mixins/match
 
 block content
-	.container-sm
-		.page-intro.text-left
-			a(href='/matches').text-muted &larr; Back to all matches
-		.page-content
-			+match(match)
+    .container-sm
+        .page-intro.text-left
+            a(href='/matches').text-muted &larr; Back to all matches
+        .page-content
+            +match(match)
+
+block js
+
+    if user
+        script.
+            MITRugby.user = !{JSON.stringify(user)};
+
+    script(src='/js/packages.js')
+    script(src='/js/attending.js')

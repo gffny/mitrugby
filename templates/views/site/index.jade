@@ -3,7 +3,6 @@ extends ../../layouts/default
 
 //- INCLUDES
 include ../../mixins/post
-include ../../mixins/meetup-talk
 include ../../mixins/advertisement
 
 //- INTRO
@@ -21,7 +20,8 @@ block intro
                     //-img(src='/images/placeholders/backdrop.jpg')
                 .hero-intro-content
                     h5.subtitle #{match.state == 'active' ? 'Next' : 'Last'} Match
-                    h1.title= match.opponent
+                    h1.title
+                        a(href='/matches/'+ match.key) #{match.opponent}
                     p.byline: strong #{match._.meetingTime.format('ddd, DD MMM YYYY')} &#8212; #{match._.meetingTime.format('h:mma')}
                     p.byline #{match.location} &#124;&#32;
                         a(href='http://maps.google.com.au/?daddr=' + (match.map || match.place), target='_blank') Directions
@@ -57,16 +57,16 @@ block content
 //- JS
 block js
 
-    if meetup
+    MITRugby.currentMatchId = '5a0a4e2a65b0398302084030';
+
+    if match
         script.
-            SydJS.currentMeetupId = !{JSON.stringify(meetup.id)};
+            MITRugby.currentMatchId = !{JSON.stringify(match.id)};
     if user
         script.
-            SydJS.user = !{JSON.stringify(user)};
+            MITRugby.user = !{JSON.stringify(user)};
 
     //- REACT SCRIPTS
-    script(src='/js/packages.js')
-    script(src='/js/home.js')
     script.
         !function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];

@@ -2,9 +2,6 @@ var keystone = require('keystone'),
 	_ = require('lodash'),
 	moment = require('moment');
 
-var Meetup = keystone.list('Meetup'),
-	RSVP = keystone.list('RSVP');
-
 exports = module.exports = function(req, res) {
 	
 	var view = new keystone.View(req, res),
@@ -12,20 +9,6 @@ exports = module.exports = function(req, res) {
 	
 	locals.section = 'me';
 	locals.page.title = 'Settings - MIT Rugby';
-	
-	view.query('nextMeetup',
-		Meetup.model.findOne()
-			.where('state', 'active')
-			.sort('startDate')
-	, 'talks[who]');
-	
-	view.query('rsvps.history',
-		RSVP.model.find()
-			.where('who', req.user)
-			.where('attending', true)
-			.populate('meetup')
-			.sort('-createdAt')
-	);
 	
 	view.on('post', { action: 'profile.details' }, function(next) {
 	

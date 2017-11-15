@@ -120,13 +120,12 @@ exports = module.exports = function (app) {
 
 	// API
 	app.all('/api*', keystone.middleware.api);
-	app.all('/api/me/meetup', routes.api.me.meetup);
+	app.all('/api/me/match', routes.api.me.match);
 	app.all('/api/stats', routes.api.stats);
-	app.all('/api/meetup/:id', routes.api.meetup);
+	app.all('/api/match/:id', routes.api.match);
 
 	// API - App
 	app.all('/api/app/status', routes.api.app.status);
-	app.all('/api/app/rsvp', routes.api.app.rsvp);
 	app.all('/api/app/signin-email', routes.api.app['signin-email']);
 	app.all('/api/app/signup-email', routes.api.app['signup-email']);
 	app.all('/api/app/signin-service', routes.api.app['signin-service']);

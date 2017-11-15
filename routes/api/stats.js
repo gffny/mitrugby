@@ -2,9 +2,7 @@ var async = require('async'),
 	moment = require('moment'),
 	keystone = require('keystone');
 
-var Meetup = keystone.list('Meetup'),
-	RSVP = keystone.list('RSVP'),
-	User = keystone.list('User'),
+var User = keystone.list('User'),
 	Post = keystone.list('Post');
 
 exports = module.exports = function(req, res) {
@@ -12,28 +10,7 @@ exports = module.exports = function(req, res) {
 	var stats = {};
 	
 	async.parallel([
-	
-		function(next) {
-			
-			Meetup.model.findOne()
-				.where('startDate').gte(moment().startOf('day').toDate())
-				.where('state', 'published')
-				.sort('startDate')
-				.exec(function(err, meetup) {
-				
-					RSVP.model.count({
-						meetup: meetup,
-						attending: true
-					})
-					.exec(function(err, count) {
-						stats.rsvps = count;
-						return next();
-					});
-				
-				});
-		
-		},
-		
+
 		function(next) {
 			
 			User.model.count()

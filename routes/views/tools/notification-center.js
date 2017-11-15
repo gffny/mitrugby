@@ -1,8 +1,7 @@
 var keystone = require('keystone'),
 	async = require('async');
 
-var Meetup = keystone.list('Meetup'),
-	User = keystone.list('User');
+var User = keystone.list('User');
 
 exports = module.exports = function(req, res) {
 	
@@ -21,33 +20,14 @@ exports = module.exports = function(req, res) {
 		return res.redirect('/');
 	}
 
-
 	// Get all subscribers
 	
 	view.query('subscribers', User.model.find().where('notifications.meetups', true));
 
-	
 	// Get the next meetup
 
 	view.on('init', function(next) {
-		Meetup.model.findOne()
-			.where('state', 'active')
-			.sort('-startDate')
-			.exec(function(err, meetup) {
-			
-				if (err) {
-					console.error("===== Error loading next meetup =====");
-					console.error(err);
-					return next();
-				} else if (!meetup) {
-					req.flash('warning', 'There isn\'t a "next" meetup at the moment' );
-					return next();
-				} else {
-					locals.nextMeetup = meetup;
-					next();
-				}
 
-			});
 	});
 
 	

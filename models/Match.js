@@ -40,7 +40,7 @@ Match.relationship({ ref: 'MatchReport', refPath: 'match', path: 'matches' });
 // ------------------------------
 
 Match.schema.virtual('url').get(function() {
-    return '/matches/' + this.key;
+    return '/matches/' + this.id;
 });
 
 Match.schema.virtual('remainingRSVPs').get(function() {
@@ -49,7 +49,8 @@ Match.schema.virtual('remainingRSVPs').get(function() {
 });
 
 Match.schema.virtual('rsvpsAvailable').get(function() {
-    return (this.remainingRSVPs > 0);
+    console.log('there are RSVPs available');
+    return true; //(this.remainingRSVPs > 0);
 });
 
 // Pre Save
