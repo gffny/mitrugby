@@ -25,6 +25,7 @@ block content
                     a(href=match.url).timeline-item-inner
                         h6.text-caps.text-danger= match._.meetingTime.format('YYYY - MMMM ')
                         h4= match.opponent
+
                         !=utils.cropString(utils.htmlToText(match.description), 240, '...', true)
                         //- !=utils.htmlToText(match.description)
 

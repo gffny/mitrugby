@@ -36,14 +36,6 @@ var AttendingApp = React.createClass({
         AttendanceStore.rsvp(attending);
     },
 
-    renderWelcome: function() {
-        if (this.state.rsvp.attending) {
-            return <h4 className="attending-button-title"><span className = "welcome-message">We have your RSVP</span></h4>
-        } else {
-            return <h4 className="attending-button-title">Are you coming or just happy to see me? <br /> <span className="spots-left">{this.state.match.remainingRSVPs}<span className="text-thin"> spots left</span></span><br /></h4>
-        }
-    },
-
     renderLoading: function() {
         return (
             <div className="hero-button">
@@ -64,7 +56,7 @@ var AttendingApp = React.createClass({
         return (
             <div className="hero-button" onClick={this.toggleRSVP.bind(this, true)}>
                 <a className="btn btn-primary btn-lg btn-block">
-                    RSVP Now (<span className="text-thin">{this.state.match.remainingRSVPs} spots left</span>)
+                    RSVP Now
                 </a>
             </div>
         );
@@ -75,7 +67,6 @@ var AttendingApp = React.createClass({
         var notAttending = this.state.rsvp.attending ? null : ' btn-danger btn-default active';
         return (
             <div>
-                {this.renderWelcome()}
                 <div className="hero-button">
                     <div id="next-match" data-id={this.state.match._id} className="form-row match-toggle">
                         <div className="col-xs-8">
