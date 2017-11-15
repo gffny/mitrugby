@@ -47,5 +47,10 @@
   "scripts": {
     "start": "node keystone.js",
     "print-graphql-schema": "babel-node ./graphql/scripts/printSchema.js"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-shell": "^0.6.3",
+    "gulp-watch": "^4.3.11"
   }
 }
