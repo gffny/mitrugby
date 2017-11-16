@@ -120,29 +120,6 @@ User.schema.pre('save', function(next) {
 			if (!member.email) return done();
 			member.gravatar = crypto.createHash('md5').update(member.email.toLowerCase().trim()).digest('hex');
 			return done();
-		},
-		function(done) {
-			keystone.list('Talk').model.count({ who: member.id }).exec(function(err, count) {
-				if (err) {
-					console.error('===== Error counting user talks =====');
-					console.error(err);
-					return done();
-				}
-				member.talkCount = count;
-				return done();
-			});
-		},
-		function(done) {
-			keystone.list('RSVP').model.findOne({ who: member.id }).sort('changedAt').exec(function(err, rsvp) {
-				if (err) {
-					console.error("===== Error setting user last RSVP date =====");
-					console.error(err);
-					return done();
-				}
-				if (!rsvp) return done();
-				member.lastRSVP = rsvp.changedAt;
-				return done();
-			});
 		}
 	], next);
 });
