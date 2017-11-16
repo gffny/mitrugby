@@ -10,8 +10,20 @@ mixin match(match)
                 .calendar__year=match._.meetingTime.format('YYYY')
         .match-content
             h2.mv-5= match.opponent
-            h5.mb-1=match._.meetingTime.format('dddd D MMM YYYY')
-            |  at #{match._.meetingTime.format('h:mma')}
+            p
+                strong Kick-Off:
+                =' '
+                =match._.meetingTime.format('dddd D MMM YYYY')
+                =' '
+                =match._.meetingTime.format('h:mma')
+            p
+                strong Match Type:
+                =' '
+                =match.location
+            if match.fieldAddress
+                strong Field Address:
+                =' '
+                =match.fieldAddress
             if match.description
                 p!= match.description
 

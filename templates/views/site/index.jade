@@ -22,9 +22,15 @@ block intro
                     h5.subtitle #{match.state == 'active' ? 'Next' : 'Last'} Match
                     h1.title
                         a(href='/matches/'+ match.key) #{match.opponent}
-                    p.byline: strong #{match._.meetingTime.format('ddd, DD MMM YYYY')} &#8212; #{match._.meetingTime.format('h:mma')}
-                    p.byline #{match.location} &#124;&#32;
-                        a(href='http://maps.google.com.au/?daddr=' + (match.map || match.place), target='_blank') Directions
+                    p.byline: strong Kick-Off at
+                        =' '
+                        =match._.kickOffTime.format('h:mma')
+                        =' on '
+                        =match._.kickOffTime.format('ddd, DD MMM YYYY')
+
+                    p.byline #{match.location}
+                    if match.fieldAddress
+                        a(href='http://maps.google.com.au/?daddr=' + (match.fieldAddress), target='_blank') Directions to Field
                 if match.state === 'active'
                     #react-hero-button
             //- Details
