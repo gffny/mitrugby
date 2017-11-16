@@ -11,12 +11,13 @@ var Attendance = new keystone.List('Attendance');
 Attendance.add({
 	match: { type: Types.Relationship, ref: 'Match', required: true, initial: true, index: true },
 	who: { type: Types.Relationship, ref: 'User', required: true, initial: true, index: true },
-    gettingThere: { type: Types.Select, options: 'Need Lift, Driving (have space), Driving (no space)', noedit: false},
+    // options for attending (attending [can provide a lift], attending [need a lift], attending [making my own way], not attending)
+    // attending-need-lift, attending-offer-lift, attending-own-way
     attending: { type: Types.Boolean, index: true },
-	createdAt: { type: Date, noedit: true, collapse: true, default: Date.now },
+    attendingType: { type: String, noedit: true },
+    createdAt: { type: Date, noedit: true, collapse: true, default: Date.now },
 	changedAt: { type: Date, noedit: true, collapse: true }
 });
-
 
 /**
  * Hooks

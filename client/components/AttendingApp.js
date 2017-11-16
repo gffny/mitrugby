@@ -32,8 +32,8 @@ var AttendingApp = React.createClass({
 		});
 	},
 
-    toggleRSVP: function(attending) {
-        AttendanceStore.rsvp(attending);
+    toggleRSVP: function(attending, type) {
+        AttendanceStore.rsvp(attending, type);
     },
 
     renderLoading: function() {
@@ -54,7 +54,7 @@ var AttendingApp = React.createClass({
 
     renderRSVPButton: function() {
         return (
-            <div className="hero-button" onClick={this.toggleRSVP.bind(this, true)}>
+            <div className="hero-button" onClick={this.toggleRSVP.bind(this, true, 'attending-need-lift')}>
                 <a className="btn btn-primary btn-lg btn-block">
                     RSVP Now
                 </a>
@@ -63,19 +63,33 @@ var AttendingApp = React.createClass({
     },
 
     renderRSVPToggle: function() {
-        var attending = this.state.rsvp.attending ?  ' btn-success btn-default active' : null;
+        var attendingOfferLift = this.state.rsvp.attending && this.state.rsvp.attendingType == 'attending-offer-lift' ? ' btn-success btn-default active' : null;
+        var attendingNeedLift = this.state.rsvp.attending && this.state.rsvp.attendingType == 'attending-need-lift' ? ' btn-success btn-default active' : null;
+        var attendingOwnWay = this.state.rsvp.attending && this.state.rsvp.attendingType == 'attending-own-way' ? ' btn-success btn-default active' : null;
         var notAttending = this.state.rsvp.attending ? null : ' btn-danger btn-default active';
         return (
             <div>
                 <div className="hero-button">
                     <div id="next-match" data-id={this.state.match._id} className="form-row match-toggle">
                         <div className="col-xs-8">
-                            <button type="button" onClick={this.toggleRSVP.bind(this, true)} className={"btn btn-lg btn-block btn-default js-rsvp-attending " + attending}>
-                                <span>You're coming!</span>
+                            <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-offer-lift')} className={"btn btn-lg btn-block btn-default js-rsvp-attending-offer-lift " + attendingOfferLift}>
+                                <span>Attending</span><span className="btn-sub">(Offering Lift)</span>
                             </button>
                         </div>
-                        <div className="col-xs-4">
-                            <button type="button" onClick={this.toggleRSVP.bind(this, false)} className={"btn btn-lg btn-block btn-default btn-decline js-rsvp-decline " + notAttending}>Can't make it?</button>
+                        <div className="col-xs-8">
+                            <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-need-lift')} className={"btn btn-lg btn-block btn-default js-rsvp-attending-need-lift " + attendingNeedLift}>
+                                <span>Attending</span><span className="btn-sub">(Need Lift)</span>
+                            </button>
+                        </div>
+                        <div className="col-xs-8">
+                            <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-own-way')} className={"btn btn-lg btn-block btn-default js-rsvp-attending-own-way " + attendingOwnWay}>
+                                <span>Attending</span><span className="btn-sub">Making My Own Way</span>
+                            </button>
+                        </div>
+                        <div className="col-xs-8">
+                            <button type="button" onClick={this.toggleRSVP.bind(this, false, '')} className={"btn btn-lg btn-block btn-default btn-decline js-rsvp-decline " + notAttending}>
+                                Not Attending
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -106,7 +120,6 @@ var AttendingApp = React.createClass({
     },
 
     render: function() {
-        console.log('RENDERING ATTENDANCE APP!');
 
         if (!this.state.isReady) {
             return this.renderLoading();
@@ -116,7 +129,7 @@ var AttendingApp = React.createClass({
         }
 
         var hasUser = !!this.state.user;
-        var isRsvpOpen = true; //this.state.match.rsvpsAvailable;
+        var isRsvpOpen = true;
         var hasRsvped = this.state.rsvp.exists;
         var isAttending = this.state.rsvp.attending;
 

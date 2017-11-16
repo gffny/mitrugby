@@ -14,7 +14,8 @@ exports = module.exports = function(req, res) {
 		attendees: [],
         rsvp: {
             exists: false,
-            attending: false
+            attending: false,
+            attendingType: null
         }
 	};
 
@@ -42,6 +43,7 @@ exports = module.exports = function(req, res) {
                     if (rsvp) {
                         rtn.rsvp.exists = true;
                         rtn.rsvp.attending = rsvp.attending;
+                        rtn.rsvp.attendingType = rsvp.attendingType;
                     }
                     return next(err);
                 });

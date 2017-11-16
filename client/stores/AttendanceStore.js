@@ -17,8 +17,6 @@ function cancelRefresh() {
 	clearTimeout(refreshTimeout);
 }
 
-var currentMatchId = '5a0a4e2a65b0398302084030';
-
 AttendanceStore.extend({
 
     getMatch: function() {
@@ -33,7 +31,7 @@ AttendanceStore.extend({
 		return attendees;
 	},
 
-	rsvp: function(attending, callback) {
+	rsvp: function(attending, type, callback) {
 		if (busy) return;
 		cancelRefresh();
 		busy = true;
@@ -41,8 +39,9 @@ AttendanceStore.extend({
 		request
 			.post('/api/me/match')
 			.send({ data: {
-                match: MITRugby.currentMatchId, //currentMatchId,
-				attending: attending
+                match: MITRugby.currentMatchId,
+				attending: attending,
+                attendingType: type
 			}})
 			.end(function(err, res) {
 				if (err) {

@@ -16,41 +16,36 @@ exports = module.exports = function(req, res) {
 
             if (req.body.statusOnly) {
                 console.log("==========statusOnly=============")
-
                 return res.apiResponse({
                     success: true,
                     rsvped: rsvp ? true : false,
-                    attending: rsvp && rsvp.attending ? true : false
+                    attending: rsvp && rsvp.attending ? true : false,
+                    attendingType: rsvp && rsvp.attendingType
                 });
-
             } else {
-
                 if (rsvp) {
                     console.log("==========rsvp=============");
                     console.log("req.body.attending", req.body);
                     rsvp.set({
-                        attending: req.body.data.attending
+                        attending: req.body.data.attending,
+                        attendingType: req.body.data.attendingType
                     }).save(function(err) {
                         if (err) return res.apiResponse({ success: false, err: err });
-                        return res.apiResponse({ success: true, attending: req.body.data.attending });
+                        return res.apiResponse({ success: true, attending: req.body.data.attending, attendingType: req.body.data.attendingType });
                     });
-
                 } else {
                     console.log("==========saving to rsvp model=============");
                     console.log("req.body.data", req.body.data);
                     new Attendance.model({
                         match: req.body.data.match,
                         who: req.user,
-                        attending: req.body.data.attending
+                        attending: req.body.data.attending,
+                        attendingType: req.body.data.attendingType
                     }).save(function(err) {
                         if (err) return res.apiResponse({ success: false, err: err });
                         return res.apiResponse({ success: true });
                     });
-
                 }
-
             }
-
         });
-
 }

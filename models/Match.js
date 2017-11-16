@@ -23,10 +23,8 @@ Match.add({
     location: { type: Types.Select, options: 'Home Game @ Roberts, Home Game @ Briggs, Away Game meeting @ Kresge', noedit: false, initial: true },
 
     map: { type: String, required: false, initial: true, width: 'medium', default: 'Briggs Field' },
-    description: { type: Types.Html, wysiwyg: true },
+    description: { type: Types.Html, wysiwyg: true }
 
-    maxRSVPs: { type: Number, default: 100 },
-    totalRSVPs: { type: Number, noedit: true },
 });
 
 // Relationships
