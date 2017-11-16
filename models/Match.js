@@ -19,10 +19,12 @@ Match.add({
 
     state: { type: Types.Select, options: 'draft, scheduled, active, past', noedit: true },
 
+    kickOffTime: { type: Types.Datetime, required: true, initial: true, index: true, width: 'short', note: 'e.g. 2014-07-15 / 6:00:00 pm' },
     meetingTime: { type: Types.Datetime, required: true, initial: true, index: true, width: 'short', note: 'e.g. 2014-07-15 / 6:00:00 pm' },
-    location: { type: Types.Select, options: 'Home Game @ Roberts, Home Game @ Briggs, Away Game meeting @ Kresge', noedit: false, initial: true },
 
-    map: { type: String, required: false, initial: true, width: 'medium', default: 'Briggs Field' },
+    location: { type: Types.Select, options: 'Home Game @ Roberts, Home Game @ Briggs, Away Game', noedit: false, initial: true},
+    fieldAddress: { type: String, required: false, noedit: false, default: '250 Vassar St, Cambridge, MA 02139', note: 'Briggs is 250 Vassar St, Cambridge, MA 02139 and Roberts is 170 Vassar St, Cambridge, MA 02139' },
+
     description: { type: Types.Html, wysiwyg: true }
 
 });
