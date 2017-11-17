@@ -1,7 +1,7 @@
 mitrugby.com rugby.mit.edu
 ==========================
 
-## The MIT Rugby Website.
+## The MIT Rugby Website
 
 Please use the GitHub Issues to log any ideas you have to improve the site, or problems you may come across.
 
@@ -10,6 +10,16 @@ Or if you're feeling more adventurous, go pick an issue and submit a pull reques
 Feel free to ask questions about how it works, if you're getting into the code.
 
 If you are part of another meetup group and want to use our site as a basis for your own, that's great, we'd love to hear about it.
+
+### Deployed Environments
+
+#### QA
+A stable environment used for beta testing 
+[Heroku QA Env]( https://mitrugby.herokuapp.com)
+
+#### CI/Dev
+Builds automatically from _master_ branch
+[Heroku CI/Dev Env](https://mitrugby-ci.herokuapp.com)
 
 ### Coding Guidelines
 
