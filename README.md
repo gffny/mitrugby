@@ -20,6 +20,7 @@ A stable environment used for beta testing
 #### CI/Dev
 Builds automatically from _master_ branch
 [Heroku CI/Dev Env](https://mitrugby-ci.herokuapp.com)
+[Travis CI](https://travis-ci.org/gffny/mitrugby)
 
 ### Coding Guidelines
 
