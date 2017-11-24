@@ -10,22 +10,26 @@ var Types = keystone.Field.Types;
 
 var Match = new keystone.List('Match', {
     track: true,
-    autokey: { path: 'key', from: 'opponent', unique: true }
+    autokey: { path: 'key', from: 'opponent kickOffTime', unique: true }
 });
 
 Match.add({
+
     opponent: { type: String, required: true, initial: true },
-    publishedDate: { type: Types.Date, index: true },
-
+    publishedDate: { type: Types.Date, index: true, format: 'yyyy-MM-dd HH:mm' },
     state: { type: Types.Select, options: 'draft, scheduled, active, past', noedit: true },
+    gameLocationType: { type: Types.Select, options: 'Home, Away, Tournament, Other', default: 'Home', noedit: false, initial: true },
 
-    kickOffTime: { type: Types.Datetime, required: true, initial: true, index: true, width: 'short', note: 'e.g. 2014-07-15 / 6:00:00 pm' },
-    meetingTime: { type: Types.Datetime, required: true, initial: true, index: true, width: 'short', note: 'e.g. 2014-07-15 / 6:00:00 pm' },
+    kickOffTime: { type: Types.Datetime, default: Date.now, required: true, initial: true, index: true, width: 'short', note: 'e.g. 2014-07-15 / 6:00' },
+    meetingTime: { type: Types.Datetime, default: Date.now, required: true, initial: true, index: true, width: 'short', note: 'e.g. 2014-07-15 / 6:00' },
 
-    location: { type: Types.Select, options: 'Home Game @ Roberts, Home Game @ Briggs, Away Game', noedit: false, initial: true},
-    fieldAddress: { type: String, required: false, noedit: false, default: '250 Vassar St, Cambridge, MA 02139', note: 'Briggs is 250 Vassar St, Cambridge, MA 02139 and Roberts is 170 Vassar St, Cambridge, MA 02139' },
+    homeField: { type: Types.Select, options: 'Home Game @ Roberts, Home Game @ Briggs', dependsOn: { gameLocationType: 'Home' }, noedit: false, initial: true },
+    awayFieldAddress: { type: String, required: false, noedit: false, dependsOn: { gameLocationType: [ 'Away', 'Tournament', 'Other' ] }, initial: true },
 
-    description: { type: Types.Html, wysiwyg: true }
+    meetingPlaceName: { type: Types.Select, options: 'Kresge Auditorium, Other', required: false, noedit: false, dependsOn: { gameLocationType: [ 'Away', 'Tournament', 'Other' ] }, initial: true },
+    meetingPlaceAddress: { type: String, required: false, noedit: false, dependsOn: { meetingPlaceName: 'Other' }, initial: true, default: '48 Massachusetts Ave, Cambridge, MA 02139', note: 'Kresge Auditorium is at 48 Massachusetts Ave, Cambridge, MA 02139' },
+
+    description: { type: Types.Html, wysiwyg: true, initial: true }
 
 });
 
@@ -117,7 +121,7 @@ Match.schema.methods.notifyAttendees = function(req, res, next) {
 
 Match.schema.set('toJSON', {
     transform: function(doc, rtn, options) {
-        return _.pick(doc, '_id', 'opponent', 'meetingTime', 'location', 'map', 'description', 'totalRSVPs');
+        return _.pick(doc, '_id', 'opponent', 'meetingTime', 'homeGame', 'map', 'description', 'totalRSVPs');
     }
 });
 
