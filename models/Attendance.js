@@ -49,6 +49,6 @@ Attendance.schema.post('remove', function() {
  * ============
  */
 
-Attendance.defaultColumns = 'match, who, createdAt';
-Attendance.defaultSort = '-createdAt';
+Attendance.defaultColumns = 'who, attendingType, match, changedAt';
+Attendance.defaultSort = '-attendingType';
 Attendance.register();
