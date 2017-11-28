@@ -14,7 +14,7 @@ exports = module.exports = function(req, res) {
 	locals.section = 'home';
 	locals.match = {};
     locals.matchReport = {};
-    locals.page.title = 'Welcome to MIT Men\'s Rugby Football Club';
+    locals.page.title = 'MITRFC | Home';
 	
 	locals.rsvpStatus = {};
 
