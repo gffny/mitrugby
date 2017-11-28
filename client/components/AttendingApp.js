@@ -53,48 +53,87 @@ var AttendingApp = React.createClass({
     },
 
     renderRSVPButton: function() {
-        return (
-            <div className="hero-button" onClick={this.toggleRSVP.bind(this, true, 'attending-need-lift')}>
-                <a className="btn btn-primary btn-lg btn-block">
-                    RSVP Now
-                </a>
-            </div>
-        );
+	    if(this.state.match.gameLocationType == 'Home') {
+            return (
+                <div className="hero-button" onClick={this.toggleRSVP.bind(this, true, 'attending')}>
+                    <a className="btn btn-primary btn-lg btn-block">
+                        RSVP Now
+                    </a>
+                </div>
+            );
+        } else {
+            return (
+                <div className="hero-button" onClick={this.toggleRSVP.bind(this, true, 'attending-need-lift')}>
+                    <a className="btn btn-primary btn-lg btn-block">
+                        RSVP Now
+                    </a>
+                </div>
+            );
+        }
     },
 
     renderRSVPToggle: function() {
-        var attendingOfferLift = this.state.rsvp.attending && this.state.rsvp.attendingType == 'attending-offer-lift' ? ' btn-success btn-default active' : null;
-        var attendingNeedLift = this.state.rsvp.attending && this.state.rsvp.attendingType == 'attending-need-lift' ? ' btn-success btn-default active' : null;
-        var attendingOwnWay = this.state.rsvp.attending && this.state.rsvp.attendingType == 'attending-own-way' ? ' btn-success btn-default active' : null;
-        var notAttending = this.state.rsvp.attending ? null : ' btn-danger btn-default active';
-        return (
-            <div>
-                <div className="hero-button">
-                    <div id="next-match" data-id={this.state.match._id} className="form-row match-toggle">
-                        <div className="col-xs-8">
-                            <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-offer-lift')} className={"btn btn-lg btn-block btn-default js-rsvp-attending-offer-lift " + attendingOfferLift}>
-                                <span>Attending</span><span className="btn-sub">(Offering Lift)</span>
-                            </button>
-                        </div>
-                        <div className="col-xs-8">
-                            <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-need-lift')} className={"btn btn-lg btn-block btn-default js-rsvp-attending-need-lift " + attendingNeedLift}>
-                                <span>Attending</span><span className="btn-sub">(Need Lift)</span>
-                            </button>
-                        </div>
-                        <div className="col-xs-8">
-                            <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-own-way')} className={"btn btn-lg btn-block btn-default js-rsvp-attending-own-way " + attendingOwnWay}>
-                                <span>Attending</span><span className="btn-sub">Making My Own Way</span>
-                            </button>
-                        </div>
-                        <div className="col-xs-8">
-                            <button type="button" onClick={this.toggleRSVP.bind(this, false, '')} className={"btn btn-lg btn-block btn-default btn-decline js-rsvp-decline " + notAttending}>
-                                Not Attending
-                            </button>
+        if(this.state.match.gameLocationType == 'Home') {
+            var attending = this.state.rsvp.attending && this.state.rsvp.attendingType == 'attending' ? ' btn-success btn-default active' : null;
+            var notAttending = this.state.rsvp.attending ? null : ' btn-danger btn-default active';
+            return (
+                <div>
+                    <div className="hero-button">
+                        <div id="next-match" data-id={this.state.match._id} className="form-row match-toggle">
+                            <div className="col-xs-8">
+                                <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending')}
+                                        className={"btn btn-lg btn-block btn-default js-rsvp-attending " + attending}>
+                                    <span>Attending</span>
+                                </button>
+                            </div>
+                            <div className="col-xs-8">
+                                <button type="button" onClick={this.toggleRSVP.bind(this, false, '')}
+                                        className={"btn btn-lg btn-block btn-default btn-decline js-rsvp-decline " + notAttending}>
+                                    Not Attending
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            var attendingOfferLift = this.state.rsvp.attending && this.state.rsvp.attendingType == 'attending-offer-lift' ? ' btn-success btn-default active' : null;
+            var attendingNeedLift = this.state.rsvp.attending && this.state.rsvp.attendingType == 'attending-need-lift' ? ' btn-success btn-default active' : null;
+            var attendingOwnWay = this.state.rsvp.attending && this.state.rsvp.attendingType == 'attending-own-way' ? ' btn-success btn-default active' : null;
+            var notAttending = this.state.rsvp.attending ? null : ' btn-danger btn-default active';
+            return (
+                <div>
+                    <div className="hero-button">
+                        <div id="next-match" data-id={this.state.match._id} className="form-row match-toggle">
+                            <div className="col-xs-8">
+                                <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-offer-lift')}
+                                        className={"btn btn-lg btn-block btn-default js-rsvp-attending-offer-lift " + attendingOfferLift}>
+                                    <span>Attending</span><span className="btn-sub">(Offering Lift)</span>
+                                </button>
+                            </div>
+                            <div className="col-xs-8">
+                                <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-need-lift')}
+                                        className={"btn btn-lg btn-block btn-default js-rsvp-attending-need-lift " + attendingNeedLift}>
+                                    <span>Attending</span><span className="btn-sub">(Need Lift)</span>
+                                </button>
+                            </div>
+                            <div className="col-xs-8">
+                                <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-own-way')}
+                                        className={"btn btn-lg btn-block btn-default js-rsvp-attending-own-way " + attendingOwnWay}>
+                                    <span>Attending</span><span className="btn-sub">Making My Own Way</span>
+                                </button>
+                            </div>
+                            <div className="col-xs-8">
+                                <button type="button" onClick={this.toggleRSVP.bind(this, false, '')}
+                                        className={"btn btn-lg btn-block btn-default btn-decline js-rsvp-decline " + notAttending}>
+                                    Not Attending
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     },
 
     // MAKESHIFT WAY TO EXPOSE JQUERY AUTH LOGIC TO REACT
