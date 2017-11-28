@@ -99,7 +99,7 @@ mixin match(match)
                     = ' | '
                     a(href='https://waze.com/ul?q=' + match.awayFieldAddress, target='_blank') waze
 
-    if match.description
+        if match.description
                 p!= match.description
 
         if match.state == 'active'
