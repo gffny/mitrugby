@@ -26,7 +26,7 @@ exports = module.exports = function(req, res) {
                 }
 
                 locals.matchReport = matchReport;
-                locals.matchReport.populateRelated('match', next);
+                return next();
 
             });
     });
@@ -35,14 +35,14 @@ exports = module.exports = function(req, res) {
 
     view.on('init', function(next) {
         Match.model.findOne()
-            .where('id', req.params.match)
+            .where('_id', locals.matchReport.match)
             .exec(function(err, match) {
 
                 if (err) {
                     return res.err(err);
                 }
                 if (!match) {
-                    return res.notfound('Post not found');
+                    return next();
                 }
 
                 locals.matchReport.match = match;

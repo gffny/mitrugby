@@ -66,7 +66,6 @@ exports = module.exports = function(req, res) {
         MatchReport.model.findOne()
             .where('match', locals.match)
             .exec(function(err, matchreport) {
-                console.log(matchreport);
                 locals.match.matchreport = matchreport;
                 return next();
             });
