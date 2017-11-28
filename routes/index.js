@@ -93,7 +93,7 @@ exports = module.exports = function (app) {
 	//app.get('/blog/:category?', routes.views.blog);
 	//app.all('/blog/post/:post', routes.views.post);
     app.get('/about', routes.views.about);
-    app.get('/contact', routes.views.contact);
+    app.all('/contact', routes.views.contact);
 	//app.get('/mentoring', routes.views.mentoring);
 
 	// Session
