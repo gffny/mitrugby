@@ -1,6 +1,7 @@
 extends ../../layouts/default
 
 include ../../mixins/match
+include ../../mixins/pastmatch
 
 
 block content
@@ -8,8 +9,10 @@ block content
         .page-intro.text-left
             a(href='/matches').text-muted &larr; Back to all matches
         .page-content
-            +match(match)
-
+            if match.state == 'past'
+                +pastmatch(match)
+            else
+                +match(match)
 block js
 
     if user

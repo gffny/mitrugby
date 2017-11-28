@@ -29,21 +29,13 @@ MatchReport.add({
 
 // Relationships
 // ------------------------------
+MatchReport.relationship({ ref: 'Match', refPath: 'matchreport', path: 'match' });
 
 // Virtuals
 // ------------------------------
 
 MatchReport.schema.virtual('url').get(function() {
     return '/matchreports/' + this.key;
-});
-
-MatchReport.schema.virtual('remainingRSVPs').get(function() {
-    if (!this.maxRSVPs) return -1;
-    return Math.max(this.maxRSVPs - (this.totalRSVPs || 0), 0);
-});
-
-MatchReport.schema.virtual('rsvpsAvailable').get(function() {
-    return (this.remainingRSVPs > 0);
 });
 
 MatchReport.schema.set('toJSON', {

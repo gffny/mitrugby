@@ -34,48 +34,48 @@ block content
                     .form-group
                         label.col-sm-2.control-label Primary Position
                         .col-sm-10: .form-row
-                            .col-xs-6: input(type='text', name='position.primary' value=user.position.primary).form-control
+                            .col-xs-6: input(type='text', name='primaryPosition' value=user.primaryPosition).form-control
                     .form-group
                         strong.col-sm-2.control-label Other Positions
                         .col-sm-10
                             .checkbox: label
-                                input(type='checkbox', name='position.lhp' value='false' checked=user.position.lhp)
+                                input(type='checkbox', name='position.lhp' value='false' checked=user.alsoPlaysLooseHeadProp)
                                 |  (1) Loose-head Prop
                             .checkbox: label
-                                input(type='checkbox', name='position.hkr' value='false' checked=user.position.hkr)
+                                input(type='checkbox', name='position.hkr' value='false' checked=user.alsoPlaysHooker)
                                 |  (2) Hooker
                             .checkbox: label
-                                input(type='checkbox', name='position.thp' value='false' checked=user.position.thp)
+                                input(type='checkbox', name='position.thp' value='false' checked=user.alsoPlaysTightHeadProp)
                                 |  (3) Tight-head Prop
                             .checkbox: label
-                                input(type='checkbox', name='position.sr' value='false' checked=user.position.sr)
+                                input(type='checkbox', name='position.sr' value='false' checked=user.alsoPlaysSecondRow)
                                 |  (4/5) Second-Row
                             .checkbox: label
-                                input(type='checkbox', name='position.bsf' value='false' checked=user.position.bsf)
+                                input(type='checkbox', name='position.bsf' value='false' checked=user.alsoPlaysBlindSideFlanker)
                                 |  (6) Blind-side Flanker
                             .checkbox: label
-                                input(type='checkbox', name='position.osf' value='false' checked=user.position.osf)
+                                input(type='checkbox', name='position.osf' value='false' checked=user.alsoPlaysOpenSideFlanker)
                                 |  (7) Open-side Flanker
                             .checkbox: label
-                                input(type='checkbox', name='position.ne' value='false' checked=user.position.ne)
+                                input(type='checkbox', name='position.ne' value='false' checked=user.alsoPlaysNumberEight)
                                 |  (8) Number Eight
                             .checkbox: label
-                                input(type='checkbox', name='position.sh' value='false' checked=user.position.sh)
+                                input(type='checkbox', name='position.sh' value='false' checked=user.alsoPlaysScrumHalf)
                                 |  (9) Scrum-Half
                             .checkbox: label
-                                input(type='checkbox', name='position.oh' value='false' checked=user.position.oh)
+                                input(type='checkbox', name='position.oh' value='false' checked=user.alsoPlaysOutHalf)
                                 |  (10) Out-Half/Number Ten
                             .checkbox: label
-                                input(type='checkbox', name='position.ic' value='false' checked=user.position.ic)
+                                input(type='checkbox', name='position.ic' value='false' checked=user.alsoPlaysInsideCentre)
                                 |  (12) Inside Centre
                             .checkbox: label
-                                input(type='checkbox', name='position.oc' value='false' checked=user.position.oc)
+                                input(type='checkbox', name='position.oc' value='false' checked=user.alsoPlaysOutsideCentre)
                                 |  (13) Outside Centre
                             .checkbox: label
-                                input(type='checkbox', name='position.wng' value='false' checked=user.position.wng)
+                                input(type='checkbox', name='position.wng' value='false' checked=user.alsoPlaysWing)
                                 |  (11/14) Wing
                             .checkbox: label
-                                input(type='checkbox', name='position.fb' value='false' checked=user.position.fb)
+                                input(type='checkbox', name='position.fb' value='false' checked=user.alsoPlaysFullBack)
                                 |  (15) Fullback
 
                 hr.mv-2

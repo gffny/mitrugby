@@ -15,6 +15,7 @@ var Match = new keystone.List('Match', {
 
 Match.add({
 
+    matchreport: { type: Types.Relationship, ref: 'MatchReport', required: true, initial: true, index: true },
     opponent: { type: String, required: true, initial: true },
     publishedDate: { type: Types.Date, index: true, format: 'yyyy-MM-dd HH:mm' },
     state: { type: Types.Select, options: 'draft, scheduled, active, past', noedit: true },
@@ -37,7 +38,7 @@ Match.add({
 // ------------------------------
 
 Match.relationship({ ref: 'Attendance', refPath: 'match', path: 'attendances' });
-Match.relationship({ ref: 'MatchReport', refPath: 'match', path: 'matches' });
+Match.relationship({ ref: 'MatchReport', refPath: 'match', path: 'matchreport' });
 
 
 // Virtuals

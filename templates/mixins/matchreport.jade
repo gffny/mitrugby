@@ -9,20 +9,33 @@ mixin matchreport(matchreport)
                 .calendar__date=matchreport.match._.meetingTime.format('DD')
                 .calendar__year=matchreport.match._.meetingTime.format('YYYY')
         .match-content
-            h2.mv-5= matchreport.match.opponent
-            p
-                strong Kick-Off:
+            h2.mv-5= matchreport.title
+            if matchreport.mitScore && matchreport.opponentScore
+            h4
+                ='MIT '
+                =matchreport.mitScore
+                =' - '
+                =matchreport.opponentScore
                 =' '
-                =matchreport.match._.kickOffTime.format('dddd D MMM YYYY')
+                =matchreport.match.opponent
+            p
+                strong Date:
+                =' '
+                =matchreport.match._.kickOffTime.format('dddd Do MMM YYYY')
+            p
+                strong Time:
                 =' '
                 =matchreport.match._.kickOffTime.format('h:mma')
-            p
-                strong Match Type:
-                =' '
-                =matchreport.match.location
+            if matchreport.manOfTheMatch
+                p
+                    strong Man of the Match:
+                    =' '
+                    =matchreport.manOfTheMatch
             if matchreport.match.fieldAddress
                 strong Field Address:
                 =' '
                 =matchreport.match.fieldAddress
+
             if matchreport.description
+                p
                 p!= matchreport.description

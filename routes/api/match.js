@@ -7,7 +7,6 @@ var Match = keystone.list('Match');
 exports = module.exports = function(req, res) {
 
 	var matchId = req.params.id;
-    console.log('matchId '+matchId);
 
 	var rtn = {
 		match: {},

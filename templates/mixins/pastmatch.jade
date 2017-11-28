@@ -1,4 +1,4 @@
-mixin pastmatch(match, matchreport)
+mixin pastmatch(match)
 
     - var today = new Date();
 
@@ -11,10 +11,14 @@ mixin pastmatch(match, matchreport)
         .match-content
             h2.mv-5= match.opponent
             p
-                strong Match Kick-Off:
+                strong Kick-Off:
                 = ' '
                 =match._.kickOffTime.format('dddd, Do MMMM YYYY')
                 = ' '
                 =match._.kickOffTime.format('h:mma')
+
+            if match.matchreport
+                strong Match Report:
+                a(href='/matchreports/'+match.matchreport.key)  #{match.matchreport.title}
 
             // TODO link to match report

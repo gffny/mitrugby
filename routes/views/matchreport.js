@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
     moment = require('moment'),
+    Match = keystone.list('Match'),
     MatchReport = keystone.list('MatchReport');
 
 exports = module.exports = function(req, res) {
@@ -8,7 +9,7 @@ exports = module.exports = function(req, res) {
         locals = res.locals;
 
     locals.section = 'matches';
-    locals.page.title = ' MITRFC | Match Report';
+    locals.page.title = 'MITRFC | Match Report';
 
     // LOAD the Match
 
@@ -17,12 +18,38 @@ exports = module.exports = function(req, res) {
             .where('key', req.params.matchreport)
             .exec(function(err, matchReport) {
 
-                if (err) return res.err(err);
-                if (!matchReport) return res.notfound('Match Report not found');
+                if (err) {
+                    return res.err(err);
+                }
+                if (!matchReport) {
+                    return res.notfound('Match Report not found');
+                }
 
                 locals.matchReport = matchReport;
+                locals.matchReport.populateRelated('match', next);
+
             });
     });
+
+    // LOAD the Match
+
+    view.on('init', function(next) {
+        Match.model.findOne()
+            .where('id', req.params.match)
+            .exec(function(err, match) {
+
+                if (err) {
+                    return res.err(err);
+                }
+                if (!match) {
+                    return res.notfound('Post not found');
+                }
+
+                locals.matchReport.match = match;
+                return next();
+            });
+    });
+
 
     view.render('site/matchreport');
 

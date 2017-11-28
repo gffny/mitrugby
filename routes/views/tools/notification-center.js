@@ -11,7 +11,8 @@ exports = module.exports = function(req, res) {
 	locals.section = 'tools';
 	locals.nextMeetup = false;
 
-
+    console.log('====== ALERT =====');
+    console.log('====== Trying to get to the notification centre =====');
 	// Keep it secret, keep it safe
 
 	if (!req.user || req.user && !req.user.isAdmin) {

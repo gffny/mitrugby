@@ -33,13 +33,17 @@ Attendance.schema.pre('save', function(next) {
 
 Attendance.schema.post('save', function() {
 	keystone.list('Match').model.findById(this.match, function(err, match) {
-		if (match) match.refreshRSVPs();
+		if (match) {
+		    match.refreshRSVPs();
+        }
 	});
 });
 
 Attendance.schema.post('remove', function() {
 	keystone.list('Match').model.findById(this.match, function(err, match) {
-		if (match) match.refreshRSVPs();
+		if (match) {
+		    match.refreshRSVPs();
+        }
 	});
 })
 

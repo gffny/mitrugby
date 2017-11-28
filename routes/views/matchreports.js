@@ -13,7 +13,6 @@ exports = module.exports = function(req, res) {
 
     view.query('previousMatchReport',
         MatchReport.model.findOne()
-            .where('state', 'active')
             .sort('-publishedDate'));
 	
 	view.query('matchReports',
@@ -22,7 +21,7 @@ exports = module.exports = function(req, res) {
 
 	view.on('render', function(next) {
 
-        if (!req.user || !locals.latestMatchReport) return next();
+        if (!req.user || !locals.previousMatchReport) return next();
 
 	});
 	

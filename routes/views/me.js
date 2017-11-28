@@ -9,7 +9,9 @@ exports = module.exports = function(req, res) {
 	
 	locals.section = 'me';
 	locals.page.title = 'Settings - MIT Rugby';
-	
+
+	//https://stackoverflow.com/questions/42406160/keystonejs-save-inside-getupdatehandler-callback-doesnt-work
+
 	view.on('post', { action: 'profile.details' }, function(next) {
 	
 		req.user.getUpdateHandler(req).process(req.body, {
@@ -36,8 +38,7 @@ exports = module.exports = function(req, res) {
 		
 		var serviceName = '';
 		
-		switch(req.query.disconnect)
-		{
+		switch(req.query.disconnect) {
 			case 'facebook': req.user.services.facebook.isConfigured = null; serviceName = 'Facebook'; break;
 			case 'google': req.user.services.google.isConfigured= null; serviceName = 'Google'; break;
 			case 'twitter': req.user.services.twitter.isConfigured = null; serviceName = 'Twitter'; break;

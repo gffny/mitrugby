@@ -6,18 +6,11 @@ block intro
     .container-sm
         .page-intro
             h1.page-title Match Reports
-            if previousMatchReport
-                h3 blah
-            p.lead We usually have practices on Tuesdays and Thursdays. We hope to see you at
+            p
                 if !user
-                    a(href='/join').js-auth-trigger our&nbsp;next&nbsp;match
-                else
-                    | our next match
-                | . Stay in the loop -
-                a(href='http://twitter.com/mitrugby', target='_blank') follow us on twitter blah
-
-if previousMatchReport
-        +matchreport(previousMatchReport)
+                    a(href='/join').js-auth-trigger We hope to see you at our next match
+        if previousMatchReport
+            +matchreport(previousMatchReport)
 
 block content
     .page-content: .container
@@ -25,10 +18,10 @@ block content
             .timeline-path
             .timeline-item--offset
                 h6=matchReports.length
-            each matchReport, i in matchReports
-                .timeline-item(class=i % 2 == 1 ? 'timeline-item--even' : 'timeline-item--odd')
-                    .timeline-item-node
-                        h6= i.url
+            //each matchReport, i in matchReports
+            //    .timeline-item(class=i % 2 == 1 ? 'timeline-item--even' : 'timeline-item--odd')
+            //        .timeline-item-node
+            //            h6= i.url
                     //a(href=matchReport.url).timeline-item-inner
                     //    h6.text-caps.text-danger= matchReport.title
                     //    //h4= matchReport.match.opponent

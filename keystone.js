@@ -19,8 +19,8 @@ var pkg = require('./package.json');
 
 keystone.init({
 
-	'name': 'MIT Men\'s Rugby Football Club',
-	'brand': 'MIT Men\'s Rugby Football Club',
+	'name': 'MITRFC | Admin ',
+	'brand': 'MIT Rugby Football Club',
 	'back': '/me',
 
 	'favicon': 'public/favicon.ico',
@@ -76,8 +76,11 @@ keystone.set('locals', {
 keystone.set('email locals', {
 	utils: keystone.utils,
 	host: (function() {
-		if (keystone.get('env') === 'staging') return 'http://mitrugby.herokuapp.com';
-		if (keystone.get('env') === 'production') return 'http://rugby.mit.edu';
+		if (keystone.get('env') === 'staging') {
+		    return 'http://mitrugby.herokuapp.com';
+		} else if (keystone.get('env') === 'production') {
+		    return 'http://rugby.mit.edu';
+        }
 		return (keystone.get('host') || 'http://localhost:') + (keystone.get('port') || '3000');
 	})()
 });
