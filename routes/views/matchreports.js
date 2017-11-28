@@ -1,7 +1,8 @@
 var keystone = require('keystone'),
 	moment = require('moment');
 
-var MatchReport = keystone.list('MatchReport');
+var MatchReport = keystone.list('MatchReport'),
+    Match = keystone.list('Match');
 
 exports = module.exports = function(req, res) {
 
@@ -21,9 +22,16 @@ exports = module.exports = function(req, res) {
 
 	view.on('render', function(next) {
 
-        if (!req.user || !locals.previousMatchReport) return next();
-
-	});
+        if (!req.user || !locals.previousMatchReport) {
+            return next();
+        }
+        Match.model.findOne()
+            .where('_id', locals.previousMatchReport.match)
+            .exec(function(err, match) {
+                locals.previousMatchReport.match = match;
+                return next();
+            });
+    });
 	
 	view.render('site/matchreports');
 	
