@@ -14,9 +14,6 @@ var User = new keystone.List('User', {
 });
 
 var deps = {
-	mentoring: { 'mentoring.available': true },
-
-	github: { 'services.github.isConfigured': true },
 	facebook: { 'services.facebook.isConfigured': true },
 	google: { 'services.google.isConfigured': true },
 	twitter: { 'services.twitter.isConfigured': true }
@@ -26,14 +23,27 @@ User.add({
 	name: { type: Types.Name, required: true, index: true },
 	email: { type: Types.Email, initial: true, index: true },
 	password: { type: Types.Password, initial: true },
-	resetPasswordKey: { type: String, hidden: true } }, 'Profile', {
-	isPublic: { type: Boolean, default: true },
-	isOrganiser: Boolean,
-    isGroup: Boolean,
-	organisation: { type: Types.Relationship, ref: 'Organisation' },
-	photo: { type: Types.CloudinaryImage },
+	resetPasswordKey: { type: String, hidden: true }
+}, 'Position', {
+    primaryPosition: { type: Types.Select, options: 'Loose-Head Prop, Hooker, Tight-Head Prop, Second-Row, Blind-Side Flanker, Open-Side Flanker, Number 8, Scrum-Half, Out-Half, Inside-Centre, Outside-Centre, Wing, Fullback', ref: 'Organisation' },
+    alsoPlaysLooseHeadProp: { type: Boolean, default: false },
+    alsoPlaysHooker: { type: Boolean, default: false },
+    alsoPlaysTightHeadProp: { type: Boolean, default: false },
+    alsoPlaysSecondRow: { type: Boolean, default: false },
+    alsoPlaysBlindSideFlanker: { type: Boolean, default: false },
+    alsoPlaysOpenSideFlanker: { type: Boolean, default: false },
+    alsoPlaysNumberEight: { type: Boolean, default: false },
+    alsoPlaysScrumHalf: { type: Boolean, default: false },
+    alsoPlaysOutHalf: { type: Boolean, default: false },
+    alsoPlaysInsideCentre: { type: Boolean, default: false },
+    alsoPlaysOutsideCentre: { type: Boolean, default: false },
+    alsoPlaysWing: { type: Boolean, default: false },
+    alsoPlaysFullBack: { type: Boolean, default: false },
+}, 'Profile', {
+    isPublic: { type: Boolean, default: true },
+    userType: { type: Types.Select, options: 'CURRENT/ACTIVE PLAYER, ALUMNI, COACH, FRIEND, OTHER', default: true },
+    photo: { type: Types.CloudinaryImage },
 	twitter: { type: String, width: 'short' },
-	website: { type: Types.Url },
 	bio: { type: Types.Markdown },
 	gravatar: { type: String, noedit: true }
 }, 'Notifications', {
@@ -81,7 +91,6 @@ User.add({
 		}
 	}
 }, 'Meta', {
-	talkCount: { type: Number, default: 0, noedit: true },
 	lastRSVP: { type: Date, noedit: true }
 });
 
@@ -95,8 +104,11 @@ User.schema.pre('save', function(next) {
 	var member = this;
 	async.parallel([
 		function(done) {
-			if (!member.email) return done();
+			if (!member.email) {
+			    return done();
+            }
 			member.gravatar = crypto.createHash('md5').update(member.email.toLowerCase().trim()).digest('hex');
+
 			return done();
 		}
 	], next);
@@ -108,8 +120,6 @@ User.schema.pre('save', function(next) {
 	=============
 */
 
-User.relationship({ ref: 'Post', refPath: 'author', path: 'posts' });
-User.relationship({ ref: 'Talk', refPath: 'who', path: 'talks' });
 User.relationship({ ref: 'Attendance', refPath: 'who', path: 'rsvps' });
 
 
