@@ -121,7 +121,7 @@ Match.schema.methods.notifyAttendees = function(req, res, next) {
 
 Match.schema.set('toJSON', {
     transform: function(doc, rtn, options) {
-        return _.pick(doc, '_id', 'opponent', 'meetingTime', 'homeGame', 'map', 'description', 'totalRSVPs');
+        return _.pick(doc, '_id', 'opponent', 'meetingTime', 'gameLocationType');
     }
 });
 
