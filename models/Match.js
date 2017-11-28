@@ -23,7 +23,7 @@ Match.add({
     kickOffTime: { type: Types.Datetime, default: Date.now, required: true, initial: true, index: true, width: 'short', note: 'e.g. 2014-07-15 / 6:00' },
     meetingTime: { type: Types.Datetime, default: Date.now, required: true, initial: true, index: true, width: 'short', note: 'e.g. 2014-07-15 / 6:00' },
 
-    homeField: { type: Types.Select, options: 'Home Game @ Roberts, Home Game @ Briggs', dependsOn: { gameLocationType: 'Home' }, noedit: false, initial: true },
+    homeField: { type: Types.Select, options: 'Briggs Field, Roberts Field', dependsOn: { gameLocationType: 'Home' }, noedit: false, initial: true },
     awayFieldAddress: { type: String, required: false, noedit: false, dependsOn: { gameLocationType: [ 'Away', 'Tournament', 'Other' ] }, initial: true },
 
     meetingPlaceName: { type: Types.Select, options: 'Kresge Auditorium, Other', required: false, noedit: false, dependsOn: { gameLocationType: [ 'Away', 'Tournament', 'Other' ] }, initial: true },
@@ -67,7 +67,7 @@ Match.schema.pre('save', function(next) {
         match.state = 'draft';
     }
     // match date plus one day is after today, it's a past match
-    else if (moment().isAfter(moment(match.startDate).add('day', 1))) {
+    else if (moment().isAfter(moment(match.kickOffTime).add('day', 1))) {
         match.state = 'past';
     }
     // publish date is after today, it's an active match
