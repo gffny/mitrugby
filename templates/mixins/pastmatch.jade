@@ -1,0 +1,20 @@
+mixin pastmatch(match, matchreport)
+
+    - var today = new Date();
+
+    .tile.ph-1.pv-1
+        .match-calendar.calendar.hidden-xs.hidden-sm(class=match.state == 'past' ? 'calendar--past' : null)
+            .calendar__header=match._.meetingTime.format('MMM')
+            .calendar__body
+                .calendar__date=match._.meetingTime.format('DD')
+                .calendar__year=match._.meetingTime.format('YYYY')
+        .match-content
+            h2.mv-5= match.opponent
+            p
+                strong Match Kick-Off:
+                = ' '
+                =match._.kickOffTime.format('dddd, Do MMMM YYYY')
+                = ' '
+                =match._.kickOffTime.format('h:mma')
+
+            // TODO link to match report
