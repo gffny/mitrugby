@@ -8,9 +8,7 @@ exports = module.exports = function(req, res) {
         locals = res.locals;
 
     locals.section = 'matches';
-    locals.page.title = 'Match Report - MIT Men\'s Rugby Football Club';
-
-    locals.rsvpStatus = {};
+    locals.page.title = ' MITRFC | Match Report';
 
     // LOAD the Match
 
