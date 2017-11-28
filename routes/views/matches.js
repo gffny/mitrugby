@@ -27,8 +27,9 @@ exports = module.exports = function(req, res) {
 	
 	view.on('render', function(next) {
 	
-		if (!req.user || !locals.upcomingMatch) return next();
-		
+		if (!req.user || !locals.upcomingMatch) {
+            return next();
+        }
 		Attendance.model.findOne()
 			.where('who', req.user._id)
 			.where('match', locals.upcomingMatch)
