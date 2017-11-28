@@ -6,7 +6,7 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 
 	locals.section = 'about';
-	locals.page.title = 'About MIT Rugby';
+	locals.page.title = 'MITRFC | About';
 
 	locals.organisers = [
 		{ name: 'John Fetchel', image: '/images/organisers/sharkie_400_round.png', twitter: 'twalve', title: 'President, MIT Rugby', profile: '/member/sharkie' },
