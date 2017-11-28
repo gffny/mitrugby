@@ -89,8 +89,7 @@ keystone.set('nav', {
     'matches': ['matches', 'attendances'],
     'match-reports': ['match-reports'],
 	'members': ['users'],
-	'posts': ['posts', 'post-categories', 'post-comments'],
-	'links': ['links', 'link-tags', 'link-comments']
+    'Enquiries': ['enquiries']
 });
 
 keystone.start();
