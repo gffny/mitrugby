@@ -1,6 +1,7 @@
 extends ../../layouts/default
 
 include ../../mixins/match
+include ../../mixins/pastmatch
 
 block intro
     .container-sm
@@ -12,36 +13,30 @@ block intro
                 else
                     | our next match
 
-        if upcomingMatches
-            +match(upcomingMatches)
+        if upcomingMatch
+            +match(upcomingMatch)
+
 block content
     .page-content: .container
         .timeline
             .timeline-path
             .timeline-item--offset
-            each match, i in pastMatches
-                .timeline-item(class=i % 2 == 1 ? 'timeline-item--even' : 'timeline-item--odd')
-                    .timeline-item-node
-                    a(href=match.url).timeline-item-inner
-                        h6.text-caps.text-danger= match._.meetingTime.format('YYYY - MMMM ')
-                        h4= match.opponent
-
-                        !=utils.cropString(utils.htmlToText(match.description), 240, '...', true)
-                        //- !=utils.htmlToText(match.description)
+            each match in pastMatches
+                +pastmatch(match)
 
         if !upcomingMatch && !pastMatches.length
             h3.text-muted There are no matches yet.
 
 block js
+    if !MITRugby
+        script.
+            MITRugby = {};
     if user
         script.
             MITRugby.user = !{JSON.stringify(user)};
+    if upcomingMatch
+        script.
+            MITRugby.currentMatchId = !{JSON.stringify(upcomingMatch.id)};
 
     script(src='/js/packages.js')
     script(src='/js/attending.js')
-
-//- block js
-    // twitter
-    script.
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-

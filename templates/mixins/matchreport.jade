@@ -1,6 +1,28 @@
 mixin matchreport(matchreport)
 
-	- var today = new Date();
-	span state
-	span mitScore
-	span opponentScore
+    - var today = new Date();
+
+    .tile.ph-1.pv-1
+        .match-calendar.calendar.hidden-xs.hidden-sm(class=matchreport.match.state == 'past' ? 'calendar--past' : null)
+            .calendar__header=matchreport.match._.meetingTime.format('MMM')
+            .calendar__body
+                .calendar__date=matchreport.match._.meetingTime.format('DD')
+                .calendar__year=matchreport.match._.meetingTime.format('YYYY')
+        .match-content
+            h2.mv-5= matchreport.match.opponent
+            p
+                strong Kick-Off:
+                =' '
+                =matchreport.match._.kickOffTime.format('dddd D MMM YYYY')
+                =' '
+                =matchreport.match._.kickOffTime.format('h:mma')
+            p
+                strong Match Type:
+                =' '
+                =matchreport.match.location
+            if matchreport.match.fieldAddress
+                strong Field Address:
+                =' '
+                =matchreport.match.fieldAddress
+            if matchreport.description
+                p!= matchreport.description
