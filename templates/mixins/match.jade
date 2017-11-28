@@ -30,11 +30,15 @@ mixin match(match)
                     strong #{match.gameLocationType} Field:
                     =' '
                     =match.homeField
-                    =' ... '
+                    =' | '
                     if match.homeField == 'Briggs Field'
-                        a(href='http://maps.google.com/?daddr=250+Vassar+Street,+Cambridge,+MA+02139', target='_blank') directions to the field
+                        a(href='http://maps.google.com/?daddr=250+Vassar+Street,+Cambridge,+MA+02139', target='_blank') google maps
+                        = ' | '
+                        a(href='https://waze.com/ul?q=250+Vassar+Street,+Cambridge,+MA+02139', target='_blank') waze
                     else
-                        a(href='http://maps.google.com/?daddr=140+Vassar+Street,+Cambridge,+MA+02139', target='_blank') directions to the field
+                        a(href='http://maps.google.com/?daddr=140+Vassar+Street,+Cambridge,+MA+02139', target='_blank') google maps
+                        = ' | '
+                        a(href='https://waze.com/ul?q=140+Vassar+Street,+Cambridge,+MA+02139', target='_blank') waze
 
             else if match.gameLocationType == 'Other'
                 if user
@@ -43,21 +47,27 @@ mixin match(match)
                             strong Meeting Location:
                             = ' '
                             =match.meetingPlaceAddress
-                            a(href='http://maps.google.com.au/?daddr=' + match.meetingPlaceAddress, target='_blank') directions to the meeting location
+                            a(href='http://maps.google.com.au/?daddr=' + match.meetingPlaceAddress, target='_blank') google maps
+                            = ' | '
+                            a(href='https://waze.com/ul?q=' + match.meetingPlaceAddress, target='_blank') waze
 
                     else
                         p
                             strong Meeting Location:
                             = ' '
                             = match.meetingPlaceName
-                            a(href='http://maps.google.com/?daddr=Kresge+Auditorium,+Massachusetts+Avenue,+Cambridge,+MA', target='_blank') directions to the Kresge
+                            a(href='http://maps.google.com/?daddr=Kresge+Auditorium,+Massachusetts+Avenue,+Cambridge,+MA', target='_blank') google maps
+                            = ' | '
+                            a(href='https://waze.com/ul?q=Kresge+Auditorium,+Massachusetts+Avenue,+Cambridge,+MA', target='_blank') waze
 
                 p
                     strong Away Field:
                     = ' '
                     = match.awayFieldAddress
-                    = ' ... '
-                    a(href='http://maps.google.com/?daddr=' + match.awayFieldAddress, target='_blank') directions to the away field location
+                    = ' | '
+                    a(href='http://maps.google.com/?daddr=' + match.awayFieldAddress, target='_blank') google maps
+                    = ' | '
+                    a(href='https://waze.com/ul?q=' + match.awayFieldAddress, target='_blank') waze
 
             else
                 if user
@@ -66,25 +76,33 @@ mixin match(match)
                             strong Meeting Location:
                             = ' '
                             =match.meetingPlaceAddress
-                            = ' ... '
-                            a(href='http://maps.google.com/?daddr=' + match.meetingPlaceAddress, target='_blank') directions to the meeting location
+                            = ' | '
+                            a(href='http://maps.google.com/?daddr=' + match.meetingPlaceAddress, target='_blank') google maps
+                            = ' | '
+                            a(href='https://waze.com/ul?q=' + match.meetingPlaceAddress, target='_blank') waze
                     else
                         p
                             strong Meeting Location:
                             = ' '
                             = match.meetingPlaceName
-                            = ' ... '
-                            a(href='http://maps.google.com/?daddr=Kresge+Auditorium,+Massachusetts+Avenue,+Cambridge,+MA', target='_blank') directions to the Kresge
+                            = ' | '
+                            a(href='http://maps.google.com/?daddr=Kresge+Auditorium,+Massachusetts+Avenue,+Cambridge,+MA', target='_blank') google maps
+                            = ' | '
+                            a(href='https://waze.com/ul?q=Kresge+Auditorium,+Massachusetts+Avenue,+Cambridge,+MA', target='_blank') waze
 
                 p
                     strong #{match.gameLocationType} Field Address:
                     = ' '
                     = match.awayFieldAddress
-                    = ' ... '
-                    a(href='http://maps.google.com/?daddr=' + match.awayFieldAddress, target='_blank') directions to the #{match.gameLocationType.toLowerCase()} field location
+                    = ' | '
+                    a(href='http://maps.google.com/?daddr=' + match.awayFieldAddress, target='_blank') google maps
+                    = ' | '
+                    a(href='https://waze.com/ul?q=' + match.awayFieldAddress, target='_blank') waze
 
-            if match.description
+    if match.description
                 p!= match.description
 
         if match.state == 'active'
             #react-match-button
+
+// TODO add waze links
