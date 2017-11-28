@@ -38,7 +38,6 @@ exports = module.exports = function(req, res) {
 		
 		switch(req.query.disconnect)
 		{
-			case 'github': req.user.services.github.isConfigured = null; serviceName = 'GitHub'; break;
 			case 'facebook': req.user.services.facebook.isConfigured = null; serviceName = 'Facebook'; break;
 			case 'google': req.user.services.google.isConfigured= null; serviceName = 'Google'; break;
 			case 'twitter': req.user.services.twitter.isConfigured = null; serviceName = 'Twitter'; break;
