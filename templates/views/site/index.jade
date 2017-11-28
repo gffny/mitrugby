@@ -3,6 +3,7 @@ extends ../../layouts/default
 
 //- INCLUDES
 include ../../mixins/post
+include ../../mixins/matchreport
 include ../../mixins/advertisement
 
 //- INTRO
@@ -21,36 +22,115 @@ block intro
                 .hero-intro-content
                     h5.subtitle #{match.state == 'active' ? 'Next' : 'Last'} Match
                     h1.title
-                        a(href='/matches/'+ match.key) #{match.opponent}
-                    p.byline: strong Kick-Off at
+                        a(href='/matches/' + match.key) #{match.opponent}
+                    p.byline
+                        strong
+                            =match._.kickOffTime.format('dddd, Do MMMM YYYY')
+                    p Kick-Off at
                         =' '
                         =match._.kickOffTime.format('h:mma')
-                        =' on '
-                        =match._.kickOffTime.format('ddd, DD MMM YYYY')
 
-                    p.byline #{match.location}
-                    if match.fieldAddress
-                        a(href='http://maps.google.com.au/?daddr=' + (match.fieldAddress), target='_blank') Directions to Field
-                if match.state === 'active'
-                    #react-hero-button
-            //- Details
-            section.hero-details: .container
-                .row: .col-sm-10.col-sm-offset-1: .row
+                    if user
+                        p Meeting at
+                            =' '
+                            =match._.meetingTime.format('h:mma')
 
-                    //- Description
-                    .col-md-5
-                        //- h3.mb-1 The Match
-                        .description!= match.description
+                    if match.gameLocationType == 'Home'
+                        p
+                            = match.homeField
+                            = ' | '
+                            if match.homeField == 'Briggs Field'
+                                a(href='http://maps.google.com/?daddr=250+Vassar+Street,+Cambridge,+MA+02139', target='_blank') google maps
+                                = ' | '
+                                a(href='https://waze.com/ul?q=250+Vassar+Street,+Cambridge,+MA+02139', target='_blank') waze
+                            else
+                                a(href='http://maps.google.com/?daddr=140+Vassar+Street,+Cambridge,+MA+02139', target='_blank') google maps
+                                = ' | '
+                                a(href='https://waze.com/ul?q=140+Vassar+Street,+Cambridge,+MA+02139', target='_blank') waze
 
-                //- Attending
-                section.attending
-                    #react-attending
+                    else if match.gameLocationType == 'Other'
+                        if user
+                            if match.meetingPlaceName == 'Other'
+                                p Meeting at
+                                    = ' '
+                                    = match.meetingPlaceAddress
+                                    a(href='http://maps.google.com.au/?daddr=' + match.meetingPlaceAddress, target='_blank') google maps
+                                    = ' | '
+                                    a(href='https://waze.com/ul?q=' + match.meetingPlaceAddress, target='_blank') waze
+
+                            else
+                                p Meeting at
+                                    = ' '
+                                    = match.meetingPlaceName
+                                    a(href='http://maps.google.com/?daddr=Kresge+Auditorium,+Massachusetts+Avenue,+Cambridge,+MA', target='_blank') google maps
+                                    = ' | '
+                                    a(href='https://waze.com/ul?q=Kresge+Auditorium,+Massachusetts+Avenue,+Cambridge,+MA', target='_blank') waze
+
+                        p.byline Away Field:
+                            =' '
+                            = match.awayFieldAddress
+                            = ' | '
+                            a(href='http://maps.google.com/?daddr=' + match.awayFieldAddress, target='_blank') google maps
+                            = ' | '
+                            a(href='https://waze.com/ul?q=' + match.awayFieldAddress, target='_blank') waze
+
+                    else
+                        if user
+                            if match.meetingPlaceName == 'Other'
+                                p.byline Meeting Location:
+                                    =' '
+                                    =match.meetingPlaceAddress
+                                    = ' | '
+                                    a(href='http://maps.google.com/?daddr=' + match.meetingPlaceAddress, target='_blank') google maps
+                                    = ' | '
+                                    a(href='https://waze.com/ul?q=' + match.meetingPlaceAddress, target='_blank') waze
+                            else
+                                p.byline Meeting Location:
+                                    = ' '
+                                    = match.meetingPlaceName
+                                    = ' | '
+                                    a(href='http://maps.google.com/?daddr=Kresge+Auditorium,+Massachusetts+Avenue,+Cambridge,+MA', target='_blank') google maps
+                                    = ' | '
+                                    a(href='https://waze.com/ul?q=Kresge+Auditorium,+Massachusetts+Avenue,+Cambridge,+MA', target='_blank') waze
+
+                        p.byline
+                            #{match.gameLocationType} Field Address:
+                            = ' '
+                            = match.awayFieldAddress
+                            = ' | '
+                            a(href='http://maps.google.com/?daddr=' + match.awayFieldAddress, target='_blank') google maps
+                            = ' | '
+                            a(href='https://waze.com/ul?q=' + match.awayFieldAddress, target='_blank') waze
+                    //- Details
+                    if match.description
+                        p!= match.description
+
+            //- Attending
+            section.attending
+                #react-match-button
 
 //- BODY
 block content
     .page-content
+        //- Most Recent Match Report
+        if matchReport
+            article.section.section--featured: .container
+                h5.subtitle Most Recent Match Report
+                h2 #{matchReport.title}
+                p MIT
+                    = ' '
+                    = matchReport.mitScore
+                    = ' - '
+                    = matchReport.opponentScore
+                    = ' '
+                    = matchReport.match.opponent
+                    = ' ('
+                    = matchReport.state.toLowerCase()
+                    =')'
 
-        //- About
+                a(href='/matchreports/' + matchReport.key) read more here...
+
+    //- About
         article.section.section--featured.home-about: .container
             h2 Interested in joining MIT Men's Rugby Football Club
             .row: .col-sm-8.col-sm-offset-2
@@ -69,6 +149,9 @@ block js
     if user
         script.
             MITRugby.user = !{JSON.stringify(user)};
+
+    script(src='/js/packages.js')
+    script(src='/js/attending.js')
 
     //- REACT SCRIPTS
     script.

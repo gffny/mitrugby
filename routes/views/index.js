@@ -51,13 +51,26 @@ exports = module.exports = function(req, res) {
 
     view.on('init', function(next) {
         MatchReport.model.findOne()
-            .where('state', 'past')
             .sort('-meetingTime')
             .exec(function(err, matchReport) {
                 locals.matchReport = matchReport;
                 next();
             });
+    });
 
+    // Load the match
+
+    view.on('init', function(next) {
+
+        if (!locals.matchReport) {
+            return next();
+        }
+        Match.model.findOne()
+            .where('_id', locals.matchReport.match)
+            .exec(function(err, match) {
+                locals.matchReport.match = match;
+                return next();
+        });
     });
 	
 	// Load an RSVP
