@@ -1,8 +1,9 @@
 var keystone = require('keystone'),
-	moment = require('moment'),
-	Attendance = keystone.list('Attendance');
+	moment = require('moment');
 
-var Match = keystone.list('Match');
+var Match = keystone.list('Match'),
+    Attendance = keystone.list('Attendance'),
+    MatchReport = keystone.list('MatchReport');
 
 exports = module.exports = function(req, res) {
 	
@@ -10,27 +11,27 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	locals.section = 'matches';
-	locals.page.title = 'Matches - MIT Men\'s Rugby Football Club';
-	
-	view.query('upcomingMatches',
+	locals.page.title = 'MITRFC | Matches';
+
+	view.query('upcomingMatch',
         Match.model.findOne()
 			.where('state', 'active')
 			.sort('-meetingTime')
-	, 'attendances[who]');
+	, 'attendances[who], matchReports[who]');
 	
 	view.query('pastMatches',
         Match.model.find()
 			.where('state', 'past')
 			.sort('-meetingTime')
-	, 'attendances[who]');
+    , 'attendances[who], matchReports[who]');
 	
 	view.on('render', function(next) {
 	
-		if (!req.user || !locals.upcomingMatches) return next();
+		if (!req.user || !locals.upcomingMatch) return next();
 		
 		Attendance.model.findOne()
 			.where('who', req.user._id)
-			.where('match', locals.upcomingMatches)
+			.where('match', locals.upcomingMatch)
 			.exec(function(err, rsvp) {
 				locals.rsvpStatus = {
 					rsvped: rsvp ? true : false,
@@ -38,7 +39,6 @@ exports = module.exports = function(req, res) {
 				}
 				return next();
 			});
-			
 	});
 	
 	view.render('site/matches');
