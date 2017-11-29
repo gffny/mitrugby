@@ -39,3 +39,8 @@ mixin matchreport(matchreport)
             if matchreport.description
                 p
                 p!= matchreport.description
+
+            div.addthis_inline_share_toolbox
+
+block js
+    script(src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a1ef411bc4a68d6')

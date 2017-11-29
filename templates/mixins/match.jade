@@ -102,5 +102,10 @@ mixin match(match)
         if match.description
                 p!= match.description
 
+        div.addthis_inline_share_toolbox
+
         if match.state == 'active'
             #react-match-button
+
+block js
+    script(src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a1ef411bc4a68d6')
