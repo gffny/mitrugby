@@ -10,9 +10,11 @@ Enquiry.add({
     email: { type: Types.Email, required: true },
     phone: { type: String },
     enquiryType: { type: Types.Select, options: [
-        { value: 'message', label: "Just leaving a message" },
-        { value: 'question', label: "I've got a question" },
-        { value: 'other', label: "Something else..." },
+        { value: 'new-player', label: "New Player" },
+        { value: 'match-secretary', label: "Match Secretary" },
+        { value: 'sponsorship', label: "Sponsorship" },
+        { value: 'equipment', label: "Equipment" },
+        { value: 'general', label: "General" },
     ], required: true },
     message: { type: Types.Textarea, required: true },
 });
