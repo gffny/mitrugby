@@ -3,6 +3,9 @@ extends ../../layouts/default
 block intro
     .page-intro: .container
         h1.page-title Contact
+        a(href='#contact') Contact Form
+        = ' | '
+        a(href='#locations') Locations
 
 block content
     .page-content
@@ -46,7 +49,7 @@ block content
                                     button(type='submit').btn.btn-primary Submit
         //- Map
         .section: .container
-            h2#map Locations
+            h2#locations Locations
             h5 Where to find us
             p MIT Rugby Football Club primarily plays their matches and practices at two locations on the Massachusetts Institute of Technology campus, both of which are located on Vassar Street in Cambridge.
             .row: .col-sm-10.col-sm-offset-1: .row
