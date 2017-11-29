@@ -1,3 +1,13 @@
+//- About
+article.section.section--featured.home-about: .container
+    h2 Interested in joining MIT Men's Rugby Football Club
+    .row: .col-sm-8.col-sm-offset-2
+    if !user
+        .row: .col-sm-4.col-sm-offset-4
+            a(href='/join', data-from=page.path).js-auth-trigger.btn.btn-lg.btn-block.btn-primary.mv-1
+                span.text-caps Join MIT Rugby now
+    p.mt-1: a(href="https://twitter.com/mitrugby", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @mitrugby
+
 //- SITE FOOTER
 footer.site-footer.site-footer--sticky: .container
     .row

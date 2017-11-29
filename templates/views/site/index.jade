@@ -130,16 +130,6 @@ block content
 
                 a(href='/matchreports/' + matchReport.key) read more here...
 
-    //- About
-        article.section.section--featured.home-about: .container
-            h2 Interested in joining MIT Men's Rugby Football Club
-            .row: .col-sm-8.col-sm-offset-2
-            if !user
-                .row: .col-sm-4.col-sm-offset-4
-                    a(href='/join', data-from=page.path).js-auth-trigger.btn.btn-lg.btn-block.btn-primary.mv-1
-                        span.text-caps Join MIT Rugby now
-            p.mt-1: a(href="https://twitter.com/mitrugby", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @mitrugby
-
 //- JS
 block js
 
@@ -153,16 +143,5 @@ block js
     script(src='/js/packages.js')
     script(src='/js/attending.js')
 
-    //- REACT SCRIPTS
-    script.
-        !function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (!d.getElementById(id)) {
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//platform.twitter.com/widgets.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }
-        }(document, "script", "twitter-wjs");
     if google_api_key
         script(src!='https://maps.googleapis.com/maps/api/js?key=' + google_api_key + '&libraries=places')
