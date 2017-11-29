@@ -20,6 +20,7 @@ header(id='header', role='banner', class=(section == 'home' ? 'header--home' : '
                     if user
                         each link in navLinks
                             li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
+                    li: a(href='/about') About Us
                     li: a(href='/contact') Contact
                 ul.navbar-nav.navbar-nav--right
                     if user
@@ -31,5 +32,5 @@ header(id='header', role='banner', class=(section == 'home' ? 'header--home' : '
                             span.entypo.entypo-large.entypo-logout
                     else
                         li: a(href='/signin', data-from=page.path, data-initial='signin').js-auth-trigger Sign in
-                        li: a(href='/join', data-from=page.path).js-auth-trigger Join
+                        li: a(href='/register', data-from=page.path).js-auth-trigger Register
 //-.header-placeholder
