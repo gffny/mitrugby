@@ -15,7 +15,6 @@ var Match = new keystone.List('Match', {
 
 Match.add({
 
-    matchreport: { type: Types.Relationship, ref: 'MatchReport', required: true, initial: true, index: true },
     opponent: { type: String, required: true, initial: true },
     publishedDate: { type: Types.Date, index: true, format: 'yyyy-MM-dd HH:mm' },
     state: { type: Types.Select, options: 'draft, scheduled, active, past', noedit: true },
@@ -30,7 +29,9 @@ Match.add({
     meetingPlaceName: { type: Types.Select, options: 'Kresge Auditorium, Other', required: false, noedit: false, dependsOn: { gameLocationType: [ 'Away', 'Tournament', 'Other' ] }, initial: true },
     meetingPlaceAddress: { type: String, required: false, noedit: false, dependsOn: { meetingPlaceName: 'Other' }, initial: true, default: '48 Massachusetts Ave, Cambridge, MA 02139', note: 'Kresge Auditorium is at 48 Massachusetts Ave, Cambridge, MA 02139' },
 
-    description: { type: Types.Html, wysiwyg: true, initial: true }
+    description: { type: Types.Html, wysiwyg: true, initial: true },
+
+    matchreport: { type: Types.Relationship, ref: 'MatchReport', nodedit: true, required: false, initial: true, index: true }
 
 });
 
