@@ -1,7 +1,5 @@
 extends ../../layouts/default
 
-include ../../mixins/organiser
-
 block intro
     .page-intro: .container
         h1.page-title Contact
@@ -10,45 +8,66 @@ block content
     .page-content
         //- Contact Form
         .section.highlight: .container
-            h2#history Contact Form
-            h5 History subhead.
-            p The Sydney JavaScript community is full of wonderful people from a diverse range of backgrounds, and we want to ensure it remains a welcoming and safe environment to all who wish to be a part of it
-            .row
-                .col-sm-8
-                    form(method='post').form-horizontal
-                        input(type='hidden', name='action', value='contact')
-                        .form-group(class=validationErrors.name ? 'has-error' : null)
-                            label.col-sm-2.text-left.control-label Name
-                            .col-sm-10
-                                input(type='text' name='name.full' value=formData['name.full'] required placeholder="First Last").form-control
-                        .form-group(class=validationErrors.email ? 'has-error' : null)
-                            label.col-sm-2.control-label Email
-                            .col-sm-10
-                                input(type='email' name='email' value=formData.email required placeholder="name@domain.com").form-control
-                        .form-group
-                            label.col-sm-2.control-label Phone
-                            .col-sm-10
-                                input(type='text' name='phone' value=formData.phone placeholder='(optional)').form-control
-                        .form-group(class=validationErrors.enquiryType ? 'has-error' : null required)
-                            label.col-sm-2.control-label Regarding
-                            .col-sm-10
-                                select(name='enquiryType').form-control
-                                    option(value='') (required)
-                                    each type in enquiryTypes
-                                        option(value=type.value selected=formData.enquiryType === type.value)= type.label
-                        .form-group(class=validationErrors.message ? 'has-error' : null)
-                            label.col-sm-2.control-label Message
-                            .col-sm-10
-                                textarea(name='message' placeholder='Leave us a message...' rows=4 required).form-control= formData.message
-                        .form-group
-                            .col-sm-10.col-sm-offset-2
-                                p.help-block Note: others can see your enquiry in the <a href='/keystone/enquiries'>Admin UI</a>
-                                button(type='submit').btn.btn-primary Submit
+            h2#contact Contact Form
+            if enquirySubmitted
+                h5 Thanks for your submission
+                p A member of the executive committee should reach out to you shortly
+            else
+                h5 Feel free to reach out to us
+                .row
+                    .col-sm-8
+                        form(method='post').form-horizontal
+                            input(type='hidden', name='action', value='contact')
+                            .form-group(class=validationErrors.name ? 'has-error' : null)
+                                label.col-sm-2.text-left.control-label Name
+                                .col-sm-10
+                                    input(type='text' name='name.full' value=formData['name.full'] required placeholder="First Last").form-control
+                            .form-group(class=validationErrors.email ? 'has-error' : null)
+                                label.col-sm-2.control-label Email
+                                .col-sm-10
+                                    input(type='email' name='email' value=formData.email required placeholder="name@domain.com").form-control
+                            .form-group
+                                label.col-sm-2.control-label Phone
+                                .col-sm-10
+                                    input(type='text' name='phone' value=formData.phone placeholder='(optional)').form-control
+                            .form-group(class=validationErrors.enquiryType ? 'has-error' : null required)
+                                label.col-sm-2.control-label Regarding
+                                .col-sm-10
+                                    select(name='enquiryType').form-control
+                                        option(value='') (required)
+                                        each type in enquiryTypes
+                                            option(value=type.value selected=formData.enquiryType === type.value)= type.label
+                            .form-group(class=validationErrors.message ? 'has-error' : null)
+                                label.col-sm-2.control-label Message
+                                .col-sm-10
+                                    textarea(name='message' placeholder='Leave us a message...' rows=4 required).form-control= formData.message
+                            .form-group
+                                .col-sm-10.col-sm-offset-2
+                                    button(type='submit').btn.btn-primary Submit
         //- Map
-        .section: .container-sm
-            h2#honors Where to find us
-            h5 Honors subhead.
-            p The Sydney JavaScript community is full of wonderful people from a diverse range of backgrounds, and we want to ensure it remains a welcoming and safe environment to all who wish to be a part of it.
+        .section: .container
+            h2#map Locations
+            h5 Where to find us
+            p MIT Rugby Football Club primarily plays their matches and practices at two locations on the Massachusetts Institute of Technology campus, both of which are located on Vassar Street in Cambridge.
+            .row: .col-sm-10.col-sm-offset-1: .row
+
+                //- Description
+                .col-md-5
+                    h4 Briggs Field
+                    p Briggs Fields is a multi-purpose grass field serving over 80 club and intramural programs. The rugby field is located across from Simmons Hall at 250 Vassar Street Cambridge, MA 02139
+                    a(href='https://www.google.com/maps/search/250%20Vassar%20Street,%20Cambridge,%20MA%2002139', target='_blank') Google Maps
+                    = ' | '
+                    a(href='https://www.waze.com/livemap?zoom=17&lat=42.35646&lon=-71.10075', target='_blank') Waze
+                    p
+                    img(src="https://maps.googleapis.com/maps/api/staticmap?center=130%20Vassar%20Street,%20Cambridge,%20MA%2002139&zoom=14&size=350x200&markers=42.3563,-71.102055&sensor=false")
+                .col-md-5
+                    h4 Roberts Field
+                    p Roberts Fields is a multi-purpose floodlight artificial playing surface. The entrance to the field is located across from West Garage at 176 Vassar Street Cambridge, MA 02139
+                    a(href='https://www.google.com/maps/search/176%20Vassar%20Street,%20Cambridge,%20MA%2002139', target='_blank') Google Maps
+                    = ' | '
+                    a(href='https://www.waze.com/livemap?zoom=17&lat=42.358357&lon=-71.09741', target='_blank') Waze
+                    p
+                    img(src="https://maps.googleapis.com/maps/api/staticmap?center=130%20Vassar+Street,%20Cambridge,%20MA%2002139&zoom=14&size=350x200&markers=42.358357,-71.09741&sensor=false")
 
 //- Honors
 .section: .container-sm
@@ -67,12 +86,4 @@ block js
                 js.src = "//platform.twitter.com/widgets.js";
                 fjs.parentNode.insertBefore(js, fjs);
             }
-
-            grecaptcha.render('html_element', {
-                'sitekey': 'your_site_key'
-            });
-
-
         }(document, "script", "twitter-wjs");
-
-    script('https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit')

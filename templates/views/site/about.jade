@@ -3,40 +3,121 @@ extends ../../layouts/default
 include ../../mixins/organiser
 
 block intro
-	.page-intro: .container
-		h1.page-title About
-		p.lead Every 3rd Wednesday of the month you'll find us talking about what we're doing and what's happening around us in the world of JavaScript.
-		p.lead MIT Men's Rugby Football club committee:
+    .page-intro: .container
+        h1.page-title About Us
+        a(href='#history') History
+        = ' | '
+        a(href='#honors') Honors
+        = ' | '
+        a(href='#committee') Committee
+        = ' | '
+        a(href='#faq') FAQ
 
 block content
-	.page-content
-		.section.highlight: .container
-			//- h2 Organisers
-			//- p.lead Each month the MIT Rugby team works to bring you great presenters in a great venue.
-			.row.about-organisers.col-md-offset-1
-				each org in organisers
-					.col-sm-4
-						+organiser(org)
+    .page-content
+        //- History
+        .section.highlight: .container
+            h2#history History head
+            h5 History subhead
+            p The Sydney JavaScript community is full of wonderful people from a diverse range of backgrounds, and we want to ensure it remains a welcoming and safe environment to all who wish to be a part of it
 
-		//- History
-		.section: .container-sm
-			h2#history History head
-			h5 History subhead.
-p The Sydney JavaScript community is full of wonderful people from a diverse range of backgrounds, and we want to ensure it remains a welcoming and safe environment to all who wish to be a part of it
+        //- Honors
+        .section: .container
+            h2#honors Honors head
+            h5 Honors subhead
+            p The Sydney JavaScript community is full of wonderful people from a diverse range of backgrounds, and we want to ensure it remains a welcoming and safe environment to all who wish to be a part of it.
 
-//- Honors
-.section: .container-sm
-h2#honors Honors head
-h5 Honors subhead.
-p The Sydney JavaScript community is full of wonderful people from a diverse range of backgrounds, and we want to ensure it remains a welcoming and safe environment to all who wish to be a part of it.
+        .section.highlight: .container
+            h2#committee Committee
+            //- p.lead Each month the MIT Rugby team works to bring you great presenters in a great venue.
+            .row.about-organisers.col-md-offset-1
+                each org in organisers
+                    .col-sm-4
+                        +organiser(org)
 
-//- Honors
-.section: .container-sm
-h2#facilities Facilities head
-h5 Facilities subhead.
-p The Sydney JavaScript community is full of wonderful people from a diverse range of backgrounds, and we want to ensure it remains a welcoming and safe environment to all who wish to be a part of it.
+        //- Honors
+        //.section: .container-sm
+        //    h2#facilities Facilities head
+        //    h5 Facilities subhead.
+        //    p The Sydney JavaScript community is full of wonderful people from a diverse range of backgrounds, and we want to ensure it remains a welcoming and safe environment to all who wish to be a part of it.
+
+        //- FAQ Form
+        .section: .container
+            h2#faq Frequently Asked Questions
+            p
+            a(href='#howtojoin') How do I join the team?
+            p
+            a(href='#experience') Are there any experience requirements?
+            p
+            a(href='#schedule') What's the schedule?
+            p
+            a(href='#try') I want to give it a try, what equipment do I need for practice?
+            p
+            a(href='#gear') OK, I am committed to coming. Where can I buy all the gear?
+            p
+            a(href='#informed') How do I keep informed about team practices?
+            p
+            a(href='#commitment') What is the usual time commitment for the club?
+            p
+            a(href='#admin') What administrative matters do I need to take care of after joining?
+            p
+            a(href='#') Directions to the pitch
+            p
+            h5#howtojoin HOW DO I JOIN THE TEAM?
+            p It’s extremely simple, just walk in to practice at your earliest convenience and give it a try! There are no tryouts or tests whatsoever, all players – new to the game and experienced – are welcome to come. If walking down to a pitch where you know no one feels awkward, drop us an email at&nbsp;
+                a(href='mailto:mitrugby.newplayer@gmail.com') mitrugby.newplayer@gmail.com&nbsp;
+                | and we’ll arrange to meet you 10-15 minutes before practice.
+            h5#experience ARE THERE ANY EXPERIENCE REQUIREMENTS?
+            p No. Many new players join the team each year, most of which have never tried rugby before. Every fall we play an A and a B side each week, so all players should have an opportunity to play. Just come down to practice at the earliest of your convenience and we’ll get you up to speed!
+            h5#schedule WHAT'S THE SCHEDULE?
+            p During the season (spring: March-May; fall: September-November) we practice twice a week and play a game on the weekends. Practice times are announced on the homepage but do check in advance. Unless otherwise said, practice will be in Briggs Field (the grass rugby pitch in Vassar St, just across Simmons Hall).
+            h5#try I WANT TO GIVE IT A TRY, WHAT EQUIPMENT DO I NEED FOR PRACTICE?
+            p The optimal would be to have: cleats (soccer/football are fine), high socks, mouth guard, rugby shorts and jersey. This might be a lot to have if you just want to try the sport. Bring whatever you have or can borrow. In any case, a pair of old sneakers, sport shorts and a T-Shirt you are not in love with will be enough for the first couple of practices. When you decide to come frequently, you will need to purchase all the gear.
+            h5#gear OK, I AM COMMITTED TO COMING. WHERE CAN I BUY ALL THE GEAR?
+            p Internet is always a good resource, but there are multiple options in Boston we recommend you explore:
+            strong Cleats/Studded boots:&nbsp;
+            | We know City Sports has rugby boots/cleats (as well as soccer), but other sport stores should have them as well.
+            br
+            strong Mouth guard:&nbsp;
+            | Again, City Sports (there's one at Harvard Square) has them.'
+            br
+            strong Shorts and socks:&nbsp;
+            | For this, we recommend buying the team’s socks and shorts, as you will have to wear them for matches. Plus, they also work really well for practice. Ask at practice.
+            br
+            strong Jersey:&nbsp;
+            | The team will provide match jerseys. However, we recommend you have your own rugby jersey for practice.
+            br
+            p If you need to buy all or most of the above, we recommend you consider buying the player pack most of us have. It includes one practice jersey, practice shorts/socks, gym top, match shorts/socks and a club gear bag. Just ask for it at practice!
+            h5#informed HOW DO I KEEP INFORMED ABOUT TEAM PRACTICES?
+            p The best way to be informed is registering on the team’s website. This will automatically sign you up to a mailing list (although you have to approve this yourself through an email you’ll get) where we talk about the public matters of the team.
+            p Private team information is distributed through the website’s private forum, which you’ll be able to access after your registration is approved. For this to happen, you need to have shown some degree of commitment to the team, which generally means showing up to practice recurrently and making sure the coaches and team know who you are.
+            h5#commitment WHAT IS THE USUAL TIME COMMITMENT FOR THE CLUB?
+            p Playing rugby involves coming to practice twice a week during weekdays and playing one game per weekend, from September to late October/November. Attendance to practice and games is highly encouraged, as it will directly affect your chances of being selected for the games.
+                | Having said that, we all have personal and academic commitments we cannot ignore and may prevent us from coming to practice/ games. Should this happen, please let other people in the team know in advance. Don’t just disappear without notice!
+            h5#admin WHAT ADMINISTRATIVE MATTERS DO I NEED TO TAKE CARE OF AFTER JOINING?
+            p Once you have come down to practice recurrently and the rest of the team knows you, you will get full access to the team’s website. Now it’s time to go through all the administrative process:
+            strong Register with USA Rugby:&nbsp;
+            | Visit USA Rugby Membership Page and register as a member of "Massachusetts Institute of Technology Men's RFC".
+            | This costs $45 for an entire year (valid September to August) and allows you to play games, plus provides additional insurance. At the end of the registration process, the system will generate a waiver you need to sign and hand in to the Club President next time you come to practice.
+            br
+            strong Availability:&nbsp;
+            | This is used for our home and away games, to plan the transportation and help coaches select the team. Just fill in whether you will be attend, and driving (and how many other people you can take) or you will need a ride.
+            br
+            strong Profile picture:&nbsp;
+            | Add a passport-type picture of yourself to your profile. This is extremely helpful for the coaches to know who you are and select you!
+            br
+            strong Team dues:&nbsp;
+            | Pay your dues through the team website. This will mainly cover for team equipment (game jerseys, balls, etc.) and other expenses for running the club.
 
 block js
-	// twitter
-	script.
-		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    // twitter
+    script.
+        !function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }(document, "script", "twitter-wjs");
