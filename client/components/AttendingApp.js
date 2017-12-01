@@ -80,13 +80,13 @@ var AttendingApp = React.createClass({
                 <div>
                     <div className="hero-button">
                         <div id="next-match" data-id={this.state.match._id} className="form-row match-toggle">
-                            <div className="col-xs-8">
+                            <div className="col-attending-btn">
                                 <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending')}
                                         className={"btn btn-lg btn-block btn-default js-rsvp-attending " + attending}>
                                     <span>Attending</span>
                                 </button>
                             </div>
-                            <div className="col-xs-8">
+                            <div className="col-attending-btn">
                                 <button type="button" onClick={this.toggleRSVP.bind(this, false, '')}
                                         className={"btn btn-lg btn-block btn-default btn-decline js-rsvp-decline " + notAttending}>
                                     Not Attending
@@ -105,25 +105,25 @@ var AttendingApp = React.createClass({
                 <div>
                     <div className="hero-button">
                         <div id="next-match" data-id={this.state.match._id} className="form-row match-toggle">
-                            <div className="col-xs-8">
+                            <div className="col-attending-btn">
                                 <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-offer-lift')}
                                         className={"btn btn-lg btn-block btn-default js-rsvp-attending-offer-lift " + attendingOfferLift}>
                                     <span>Attending</span><span className="btn-sub">(Offering Lift)</span>
                                 </button>
                             </div>
-                            <div className="col-xs-8">
+                            <div className="col-attending-btn">
                                 <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-need-lift')}
                                         className={"btn btn-lg btn-block btn-default js-rsvp-attending-need-lift " + attendingNeedLift}>
                                     <span>Attending</span><span className="btn-sub">(Need Lift)</span>
                                 </button>
                             </div>
-                            <div className="col-xs-8">
+                            <div className="col-attending-btn">
                                 <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-own-way')}
                                         className={"btn btn-lg btn-block btn-default js-rsvp-attending-own-way " + attendingOwnWay}>
                                     <span>Attending</span><span className="btn-sub">Making My Own Way</span>
                                 </button>
                             </div>
-                            <div className="col-xs-8">
+                            <div className="col-attending-btn">
                                 <button type="button" onClick={this.toggleRSVP.bind(this, false, '')}
                                         className={"btn btn-lg btn-block btn-default btn-decline js-rsvp-decline " + notAttending}>
                                     Not Attending
