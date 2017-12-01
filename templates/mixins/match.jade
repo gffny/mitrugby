@@ -9,7 +9,8 @@ mixin match(match)
                 .calendar__date=match._.meetingTime.format('DD')
                 .calendar__year=match._.meetingTime.format('YYYY')
         .match-content
-            h2.mv-5= match.opponent
+            h2.mv-5
+                a(href='/matches/' + match.key) #{match.opponent}
             p
                 strong Date:
                 =' '
