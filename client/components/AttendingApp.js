@@ -38,7 +38,7 @@ var AttendingApp = React.createClass({
 
     renderLoading: function() {
         return (
-            <div className="hero-button">
+            <div className="hero-1-button">
                 <div className="alert alert-success mb-0 text-center">loading...</div>
             </div>
         );
@@ -46,7 +46,7 @@ var AttendingApp = React.createClass({
 
     renderBusy: function() {
         return (
-            <div className="hero-button">
+            <div className="hero-1-button">
                 <div className="alert alert-success mb-0 text-center">hold on...</div>
             </div>
         );
@@ -55,7 +55,7 @@ var AttendingApp = React.createClass({
     renderRSVPButton: function() {
 	    if(this.state.match.gameLocationType == 'Home') {
             return (
-                <div className="hero-button" onClick={this.toggleRSVP.bind(this, true, 'attending')}>
+                <div className="hero-2-button" onClick={this.toggleRSVP.bind(this, true, 'attending')}>
                     <a className="btn btn-primary btn-lg btn-block">
                         RSVP Now
                     </a>
@@ -63,7 +63,7 @@ var AttendingApp = React.createClass({
             );
         } else {
             return (
-                <div className="hero-button" onClick={this.toggleRSVP.bind(this, true, 'attending-need-lift')}>
+                <div className="hero-2-button" onClick={this.toggleRSVP.bind(this, true, 'attending-need-lift')}>
                     <a className="btn btn-primary btn-lg btn-block">
                         RSVP Now
                     </a>
@@ -78,7 +78,7 @@ var AttendingApp = React.createClass({
             var notAttending = this.state.rsvp.attending ? null : ' btn-danger btn-default active';
             return (
                 <div>
-                    <div className="hero-button">
+                    <div className="hero-2-button">
                         <div id="next-match" data-id={this.state.match._id} className="form-row match-toggle">
                             <div className="col-attending-btn">
                                 <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending')}
@@ -103,7 +103,7 @@ var AttendingApp = React.createClass({
             var notAttending = this.state.rsvp.attending ? null : ' btn-danger btn-default active';
             return (
                 <div>
-                    <div className="hero-button">
+                    <div className="hero-4-button">
                         <div id="next-match" data-id={this.state.match._id} className="form-row match-toggle">
                             <div className="col-attending-btn">
                                 <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-offer-lift')}
@@ -117,13 +117,13 @@ var AttendingApp = React.createClass({
                                     <span>Attending</span><span className="btn-sub">(Need Lift)</span>
                                 </button>
                             </div>
-                            <div className="col-attending-btn">
+                            <div className="col-attending-btn btm-row">
                                 <button type="button" onClick={this.toggleRSVP.bind(this, true, 'attending-own-way')}
                                         className={"btn btn-lg btn-block btn-default js-rsvp-attending-own-way " + attendingOwnWay}>
                                     <span>Attending</span><span className="btn-sub">Making My Own Way</span>
                                 </button>
                             </div>
-                            <div className="col-attending-btn">
+                            <div className="col-attending-btn btm-row">
                                 <button type="button" onClick={this.toggleRSVP.bind(this, false, '')}
                                         className={"btn btn-lg btn-block btn-default btn-decline js-rsvp-decline " + notAttending}>
                                     Not Attending
@@ -144,7 +144,7 @@ var AttendingApp = React.createClass({
 
     renderRSVPSignin: function() {
         return (
-            <div className="hero-button">
+            <div className="hero-1-button">
                 <a className="btn btn-primary btn-lg btn-block js-auth-trigger" onClick={this.signinModalTrigger}>RSVP Now</a>
             </div>
         );
@@ -152,7 +152,7 @@ var AttendingApp = React.createClass({
 
     renderNoMoreTickets: function() {
         return (
-            <div className="hero-button">
+            <div className="hero-1-button">
                 <div className="alert alert-success mb-0 text-center">No more tickets...</div>
             </div>
         );

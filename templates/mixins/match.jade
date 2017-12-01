@@ -101,12 +101,13 @@ mixin match(match)
                     a(href='https://waze.com/ul?q=' + match.awayFieldAddress, target='_blank') waze
 
         if match.description
-                p!= match.description
-
-        div.addthis_inline_share_toolbox
+            p!= match.description
 
         if match.state == 'active'
             #react-match-button
+
+        div.addthis_inline_share_toolbox
+
 
 block js
     script(src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a1ef411bc4a68d6')
