@@ -1,0 +1,80 @@
+extends ../../layouts/default
+
+include ../../mixins/organiser
+
+block intro
+    .page-intro: .container
+        h1.page-title History
+        a(href='#early') Early History
+        = ' | '
+        a(href='#national') National Rugby
+        = ' | '
+        a(href='#touring') Touring History
+        = ' | '
+        a(href='#honors') Club Honors
+        = ' | '
+        a(href='#social') Social History
+
+block content
+    .page-content
+        //- History
+        .section.highlight: .container
+            h2#early Early History
+            h5 History subhead
+            p Rugby football was being played at MIT as early as 1882 according to school records. It became increasingly popular during the early 1900's when gridiron football was temporarily banned at the school. The club ceased to exist during the Second World War only to be resurrected in 1949, making it the oldest club in the New England Rugby Football Union (NERFU) and one of the oldest in the United States. In fact, MIT RFC was the moving force in the establishment of NERFU itself. With the leadership of Prof. Joe Walsh and Dr. Bob Lawrence (MIT Ph.D. '57), NERFU has become one of the strongest sub-unions in the United States.
+
+        //- History
+        .section: .container
+            h2#honors Club Honors
+            h5 A brief history of MIT RFC's early successes
+            p The club has won almost every piece of silverware available on the East Coast, including the college division of the country's largest sevens tournament (Rockaway, 1989). The MIT RFC is the only college side ever to win the NERFU Championship (1974). MIT RFC was the first winner of the prestigious New York Sevens Tournament in 1958 (The MIT Women's RFC won their bracket in 1979). MIT won the Tech School Tournament the three years it was run (1984-1986). In the Spring of 1993, MIT came out with big wins against Columbia and the Uniformed Services Medical School to win the E.R.U. Graduate School Championships. Most recently, the MIT RFC Summer Seven's Team won the boot division at the Beacon Hill's Sevens Tournament in 1995.
+            h5 Competitive record in recent years
+            p Buoyed by an influx of talent in recent years, the recruitment of top quality coach, and development of a performant club organisation to oversee off field responsibilities, MIT Rugby has become highly competitive again in recent years, being knocked out of the USA Rugby D3 Men's Club Championship by the eventual winners.
+            ul
+                li 2015 NERFU D3 League Champions
+                li 2014 NERFU D3 Cup Champions, NERFU D3 League Champions
+                li 2013 NERFU D3 Cup Runners Up, NERFU D3 League Runners Up
+                li 2012 NERFU D3 Cup Champions, NERFU D3 League Runners Up
+                li 2011 NERFU D3 Cup Champions, NERFU D3 League Runners Up
+
+        //- History
+        .section.highlight: .container
+            h2#national National Rugby
+            h5 New England Rugby
+            p Several clubs which are now regional or national powers are children or grandchildren of the MIT RFC. By the late 1950's, rugby at MIT had become so popular and had retained so many alumni that the decision was made to restrict MIT RFC membership to current MIT students. Because of this action, a number of MIT alumni started the Boston RFC in 1960, the first club team established in New England. Boston RFC in turn, became perennial NERFU champions and one of the premier teams in the country.
+            h5 Further afield
+            p An MIT RFC alumnus of the class of 1966, known throughout USA Rugby solely as The Troll (due to his ability and inclination to live at the bottom of scrums) has been a leader in the development of rugby in the Pacific North-West coast with the formation of the Portland (Ore.) Jesters and their rivals, the Portland Pigs.
+            h5 MIT Women's Rugby
+            p With the help and support of the men's club, the MIT Women's RFC was formed in 1976. The team included several players from the nearby Wellesley College. The Wellesley College players split off in 1988 to form their own club which was coached by MIT RFC men's players until recently. According to some calculations, the MIT RFC has helped develop over one thousand players since its reincarnation in 1949.
+
+        //- History
+        .section: .container
+            h2#touring Touring History
+            h5 Continuing a rugby tradition of learning through travel and interaction
+            p During the mid-1950's, MIT RFC was considered to be the unofficial national champion; the club's spring tour of the Eastern seaboard was the yardstick by which the development of American Rugby was measured. Since then, the club has toured many foreign lands, the first being Bermuda in 1951. As one alumnus wrote, "We went to Bermuda as a team for the spring vacation rugby festival in 1951 and it was a ball. Wealthy families had taken their daughters to Bermuda for Easter vacation but not their sons, and the girls complained bitterly. The Hamilton Chamber of Commerce hit on the terrific idea of having a series of rugby matches during that week, thereby providing something to watch and men for the cocktail parties the young ladies loved to have. I believe they provided us a place to stay and free breakfast and it was up to us to piece together lunch and dinner at the social events" [ed. note, Albert D. Wheelon, the writer, was a senior vice-president at Lockheed Missile and Space Company in 1992]
+            p Our biannual touring tradition was reestablished with the 1984 tour of England. That tour was followed with tours of England and Wales (In 1986), France (1988), Japan (1990) and Scotland (1992). After skipping 1994 as a rebuilding year, we prepare ourselves to revisit England and Wales for our "Ten Year Reunion". To complement our touring ways, the club yearly hosts foreign tours. In the last couple of years, we have hosted Hatfield Polytechnic (England), University of Western Ontario (Canada) and Glasgow University (Scotland).
+            p MIT Rugby has toured to Ireland, the UK, and France in relatively recent years. Tours are open to all current and former players and it's a great way for different generations of the club to travel, play rugby together, and share some unforgettable experiences
+            strong Recent Tours
+            ul
+                li 2005 - France
+                li 2007 - Ireland
+                li 2013 - United Kingdom and Ireland
+
+        //- History
+        .section.highlight: .container
+            h2#social Social History
+            h5 Promoting rugby values
+            p As a leader in American rugby, MIT RFC understands the importance of the social aspects of the game (particularly when hosting or traveling on tour). Even in the years when the club's record on the pitch slips, the pride is maintained with a social tradition that asserts; "If we lose the match, make damn sure that we win the party!". Usually known as one of the most versed singing teams in the area, the club has received national press for their sound rugby traditions. As an article in Rugby Magazine commented: "Due to many academic commitments and other obligations, MIT showed up at 4 a.m. and slept on the pitch. They started slowly, but showed their true rugby spirit, finishing strong... Despite loosing a close match to P.C.O.M. (Philadelphia College of Osteopathic Medicine), they proceeded to show their hosts their true partying technique."
+
+block js
+    // twitter
+    script.
+        !function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }(document, "script", "twitter-wjs");

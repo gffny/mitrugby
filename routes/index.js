@@ -86,13 +86,8 @@ exports = module.exports = function (app) {
 	app.get('/members', routes.views.members);
 	//app.get('/members/mentors', routes.views.mentors);
 	app.get('/member/:member', routes.views.member);
-	//app.get('/organisations', routes.views.organisations);
-	//app.get('/links', routes.views.links);
-	//app.get('/links/:tag?', routes.views.links);
-	//app.all('/links/link/:link', routes.views.link);
-	//app.get('/blog/:category?', routes.views.blog);
-	//app.all('/blog/post/:post', routes.views.post);
     app.get('/about', routes.views.about);
+    app.get('/about/history', routes.views.history);
     app.all('/contact', routes.views.contact);
 	//app.get('/mentoring', routes.views.mentoring);
 
