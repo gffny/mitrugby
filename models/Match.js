@@ -10,28 +10,29 @@ var Types = keystone.Field.Types;
 
 var Match = new keystone.List('Match', {
     track: true,
-    autokey: { path: 'key', from: 'opponent kickOffTime', unique: true }
+    autokey: { path: 'key', from: 'keygenfunc', unique: true }
 });
 
 Match.add({
 
+    name: { type: String, required: false, initial: false, noedit: true },
     opponent: { type: String, required: true, initial: true },
     publishedDate: { type: Types.Date, index: true, format: 'yyyy-MM-dd HH:mm' },
-    state: { type: Types.Select, options: 'draft, scheduled, active, past', noedit: true },
+    state: { type: String, noedit: true },
     gameLocationType: { type: Types.Select, options: 'Home, Away, Tournament, Other', default: 'Home', noedit: false, initial: true },
 
     kickOffTime: { type: Types.Datetime, default: Date.now, required: true, initial: true, index: true, width: 'short', note: 'e.g. 2014-07-15 / 6:00' },
     meetingTime: { type: Types.Datetime, default: Date.now, required: true, initial: true, index: true, width: 'short', note: 'e.g. 2014-07-15 / 6:00' },
 
-    homeField: { type: Types.Select, options: 'Briggs Field, Roberts Field', dependsOn: { gameLocationType: 'Home' }, noedit: false, initial: true },
-    awayFieldAddress: { type: String, required: false, noedit: false, dependsOn: { gameLocationType: [ 'Away', 'Tournament', 'Other' ] }, initial: true },
+    homeField: { type: Types.Select, options: 'Briggs Field, Roberts Field', dependsOn: { gameLocationType: 'Home' }, noedit: false, initial: true, required: true },
+    awayFieldAddress: { type: String, required: true, noedit: false, dependsOn: { gameLocationType: [ 'Away', 'Tournament', 'Other' ] }, initial: true },
 
-    meetingPlaceName: { type: Types.Select, options: 'Kresge Auditorium, Other', required: false, noedit: false, dependsOn: { gameLocationType: [ 'Away', 'Tournament', 'Other' ] }, initial: true },
-    meetingPlaceAddress: { type: String, required: false, noedit: false, dependsOn: { meetingPlaceName: 'Other' }, initial: true, default: '48 Massachusetts Ave, Cambridge, MA 02139', note: 'Kresge Auditorium is at 48 Massachusetts Ave, Cambridge, MA 02139' },
+    meetingPlaceName: { type: Types.Select, options: 'Kresge Auditorium, Other', required: true, noedit: false, dependsOn: { gameLocationType: [ 'Away', 'Tournament', 'Other' ] }, initial: true },
+    meetingPlaceAddress: { type: String, required: true, noedit: false, dependsOn: { meetingPlaceName: 'Other' }, initial: true, default: '48 Massachusetts Ave, Cambridge, MA 02139', note: 'Kresge Auditorium is at 48 Massachusetts Ave, Cambridge, MA 02139' },
 
     description: { type: Types.Html, wysiwyg: true, initial: true },
 
-    matchreport: { type: Types.Relationship, ref: 'MatchReport', nodedit: true, required: false, initial: true, index: true }
+    matchReport: { type: Types.Relationship, ref: 'MatchReport', hidden: true, required: false }
 
 });
 
@@ -39,7 +40,7 @@ Match.add({
 // ------------------------------
 
 Match.relationship({ ref: 'Attendance', refPath: 'match', path: 'attendances' });
-Match.relationship({ ref: 'MatchReport', refPath: 'match', path: 'matchreport' });
+Match.relationship({ ref: 'MatchReport', refPath: 'matchKey', path: 'matchreport' });
 
 
 // Virtuals
@@ -47,6 +48,11 @@ Match.relationship({ ref: 'MatchReport', refPath: 'match', path: 'matchreport' }
 
 Match.schema.virtual('url').get(function() {
     return '/matches/' + this.id;
+});
+
+// added a function called keygenfunc to override the key to use a formatted date rather than a datetime
+Match.schema.virtual('keygenfunc').get(function() {
+    return 'vs '+ this.opponent + ' on ' + moment(this.kickOffTime).format('YY-MM-DD');
 });
 
 Match.schema.virtual('remainingRSVPs').get(function() {
@@ -59,17 +65,22 @@ Match.schema.virtual('rsvpsAvailable').get(function() {
     return true; //(this.remainingRSVPs > 0);
 });
 
+Match.schema.virtual('isPast').get(function() {
+    return moment().isAfter(moment(this.kickOffTime).add(1, 'day'))
+});
+
 // Pre Save
 // ------------------------------
 
 Match.schema.pre('save', function(next) {
     var match = this;
+    match.name = moment(this.kickOffTime).format('YYYY-MMM-DD') + ' vs '+ this.opponent;
     // no published date, it's a draft match
     if (!match.publishedDate) {
         match.state = 'draft';
     }
     // match date plus one day is after today, it's a past match
-    else if (moment().isAfter(moment(match.kickOffTime).add('day', 1))) {
+    else if (moment().isAfter(moment(match.kickOffTime).add(1, 'day'))) {
         match.state = 'past';
     }
     // publish date is after today, it's an active match
@@ -123,10 +134,9 @@ Match.schema.methods.notifyAttendees = function(req, res, next) {
 
 Match.schema.set('toJSON', {
     transform: function(doc, rtn, options) {
-        return _.pick(doc, '_id', 'opponent', 'meetingTime', 'gameLocationType');
+        return _.pick(doc, '_id', 'opponent', 'meetingTime', 'gameLocationType', 'isPast', 'matchReport');
     }
 });
-
 
 /**
  * Registration
@@ -134,5 +144,5 @@ Match.schema.set('toJSON', {
  */
 
 Match.defaultSort = '-meetingTime';
-Match.defaultColumns = 'opponent, state|10%, meetingTime|15%, publishedDate|15%';
+Match.defaultColumns = 'id, name, opponent, state|10%, meetingTime|15%, publishedDate|15%';
 Match.register();
