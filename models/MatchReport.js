@@ -2,6 +2,7 @@ var _ = require('lodash');
 var keystone = require('keystone');
 var moment = require('moment');
 var Types = keystone.Field.Types;
+var Match = keystone.list('Match');
 
 /**
  * Matches MatchReport
@@ -15,11 +16,11 @@ var MatchReport = new keystone.List('MatchReport', {
 
 MatchReport.add({
 
-    match: { type: Types.Relationship, ref: 'Match', required: true, initial: true, index: true },
+    matchKey: { type: Types.Relationship, ref: 'Match', required: true, initial: true, index: true },
     state: { type: Types.Select, options: 'Win, Tied, Lost', initial: true, noedit: false },
     mitScore: { type: Number, required: true, initial: true, default: 0 },
     opponentScore: { type: Number, required: true, initial: true, default: 0 },
-    manOfTheMatch: { type: String, intial: true },
+    manOfTheMatch: { type: String, initial: true },
     title: { type: String, initial: true },
     description: { type: Types.Html, wysiwyg: true },
 
@@ -29,7 +30,6 @@ MatchReport.add({
 
 // Relationships
 // ------------------------------
-MatchReport.relationship({ ref: 'Match', refPath: 'matchreport', path: 'match' });
 
 // Virtuals
 // ------------------------------
@@ -38,12 +38,12 @@ MatchReport.schema.virtual('url').get(function() {
     return '/matchreports/' + this.key;
 });
 
+
 MatchReport.schema.set('toJSON', {
     transform: function(doc, rtn, options) {
-        return _.pick(doc, '_id', 'match', 'state', 'mitScore', 'opponentScore', 'description', 'manOfTheMatch', 'description');
+        return _.pick(doc, '_id', 'match', 'state', 'mitScore', 'opponentScore', 'manOfTheMatch', 'description');
     }
 });
-
 
 /**
  * Registration
