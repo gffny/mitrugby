@@ -84,12 +84,10 @@ exports = module.exports = function (app) {
     app.get('/matchreports', routes.views.matchreports);
     app.get('/matchreports/:matchreport', routes.views.matchreport);
 	app.get('/members', routes.views.members);
-	//app.get('/members/mentors', routes.views.mentors);
 	app.get('/member/:member', routes.views.member);
     app.get('/about', routes.views.about);
     app.get('/about/history', routes.views.history);
     app.all('/contact', routes.views.contact);
-	//app.get('/mentoring', routes.views.mentoring);
 
 	// Session
 	app.all('/join', routes.views.session.join);
