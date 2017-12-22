@@ -10,74 +10,43 @@ exports = module.exports = function(req, res) {
 	
 	var view = new keystone.View(req, res),
 		locals = res.locals;
-	
+
 	locals.section = 'home';
-	locals.match = {};
-    locals.matchReport = {};
     locals.page.title = 'MITRFC | Home';
-	
+
 	locals.rsvpStatus = {};
+	locals.match = {};
 
 	locals.user = req.user;
-	
-	// Load the first, NEXT match
-	
-	view.on('init', function(next) {
-        Match.model.findOne()
-			.where('state', 'active')
-			.sort('-meetingTime')
-			.exec(function(err, activeMatch) {
-				locals.activeMatch = activeMatch;
-				next();
-			});
-			
-	});
-	
-	
-	// Load the first, PAST match
-	
-	view.on('init', function(next) {
-		Match.model.findOne()
-			.where('state', 'past')
-			.sort('-meetingTime')
-			.exec(function(err, pastMatch) {
-				locals.pastMatch = pastMatch;
-				next();
-			});
-			
-	});
 
     // Load the latest match report
+    view.query('latestMatchReport',
 
-    view.on('init', function(next) {
-        MatchReport.model.findOne()
-            .sort('-meetingTime')
-            .exec(function(err, matchReport) {
-                locals.matchReport = matchReport;
-                next();
-            });
-    });
-
-    // Load the match
-
-    view.on('init', function(next) {
-
-        if (!locals.matchReport) {
-            return next();
-        }
         Match.model.findOne()
-            .where('_id', locals.matchReport.match)
-            .exec(function(err, match) {
-                locals.matchReport.match = match;
-                return next();
-        });
-    });
-	
-	// Load an RSVP
-	
+            .where('state').ne('draft')
+            .where('matchReport').ne(null)
+            .sort('-meetingTime'), 'matchreport');
+
+    view.query('pastMatch',
+
+        Match.model.findOne()
+            .where('state').ne('draft')
+            .where('kickOffTime').lt(moment().startOf('day'))
+            .sort('-meetingTime'), 'matchreport');
+
+    view.query('activeMatch',
+
+        Match.model.findOne()
+            .where('state').ne('draft')
+            .where('kickOffTime').lt(moment().startOf('day'))
+            .sort('-meetingTime'), 'attendances[who]');
+
+    // Load an RSVP
 	view.on('init', function(next) {
 
-		if (!req.user || !locals.activeMatch) return next();
+		if (!req.user) {
+		    return next();
+        }
 
         Attendance.model.findOne()
 			.where('who', req.user._id)
@@ -89,21 +58,16 @@ exports = module.exports = function(req, res) {
 				}
 				return next();
 			});
-			
 	});
-	
-	// Decide which to render
-	
-	view.on('render', function(next) {
-		
-		locals.match = locals.activeMatch || locals.pastMatch;
-		if (locals.match) {
-			locals.match.populateRelated('attendances[who]', next);
-		} else {
-			next();
-		}
-	});
-	
-	view.render('site/index');
-	
+
+    view.on('render', function(next) {
+
+        locals.match = locals.activeMatch ? locals.activeMatch : locals.pastMatch;
+
+        return next();
+    });
+
+
+    view.render('site/index');
+
 }

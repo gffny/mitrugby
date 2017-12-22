@@ -1,6 +1,6 @@
 mixin pastmatch(match)
 
-    - var today = new Date();
+    - var report = match.matchreport ? match.matchreport[0] : null;
 
     .tile.ph-1.pv-1
         .match-calendar.calendar.hidden-xs.hidden-sm(class=match.state == 'past' ? 'calendar--past' : null)
@@ -9,16 +9,27 @@ mixin pastmatch(match)
                 .calendar__date=match._.meetingTime.format('DD')
                 .calendar__year=match._.meetingTime.format('YYYY')
         .match-content
-            h2.mv-5= match.opponent
-            p
-                strong Kick-Off:
-                = ' '
-                =match._.kickOffTime.format('dddd, Do MMMM YYYY')
-                = ' '
-                =match._.kickOffTime.format('h:mma')
+            h4.text-caps.text-danger=match._.kickOffTime.format('dddd, Do MMMM YYYY')
+            h2.mv-5 #{match.opponent}
+            if report
+                strong MIT
+                =' '
+                =report.mitScore
+                =' - '
+                =report.opponentScore
+                =' '
+                strong #{match.opponent}
+                p
+                    strong Man of the Match:
+                    =' '
+                    =report.manOfTheMatch
+                p
+                    !=report.description
+                    //=(report.description.length > 50) ? report.description.substr(0, 50) + '&hellip;' : report.description
+                    a(href='/matchreports/' + report.key) read more ...
+                div.addthis_inline_share_toolbox
+            else
+                ='No Match Report'
 
-            if match.matchreport
-                strong Match Report:
-                a(href='/matchreports/'+match.matchreport.key)  #{match.matchreport.title}
-
-            // TODO link to match report
+block js
+    script(src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a1ef411bc4a68d6')

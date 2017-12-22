@@ -1,7 +1,7 @@
-mixin match(match)
+mixin topmatch(match)
 
     .tile.ph-1.pv-1
-        .match-calendar.calendar.hidden-xs.hidden-sm(class=match.state == 'past' ? 'calendar--past' : null)
+        .match-calendar.calendar.hidden-xs.hidden-sm(class=match.isPast ? 'calendar--past' : null)
             .calendar__header=match._.meetingTime.format('MMM')
             .calendar__body
                 .calendar__date=match._.meetingTime.format('DD')
@@ -98,7 +98,7 @@ mixin match(match)
         if match.description
             p!= match.description
 
-        if match.state == 'active'
+        if !match.isPast
             #react-match-button
 
         div.addthis_inline_share_toolbox

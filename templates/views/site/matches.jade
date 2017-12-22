@@ -1,7 +1,7 @@
 extends ../../layouts/default
 
-include ../../mixins/match
-include ../../mixins/pastmatch
+include ../../mixins/topmatch
+include ../../mixins/timelinepastmatch
 
 block intro
     .container-sm
@@ -13,30 +13,30 @@ block intro
                 else
                     | our next match
 
-        if upcomingMatch
-            +match(upcomingMatch)
+        if topMatch
+            +topmatch(topMatch)
 
 block content
     .page-content: .container
         .timeline
             .timeline-path
             .timeline-item--offset
-            each match in pastMatches
-                +pastmatch(match)
+            each match, i in additionalMatches
+                +timelinepastmatch(match, i)
 
-        if !upcomingMatch && !pastMatches.length
+        if !topMatch && !additionalMatches.length
             h3.text-muted There are no matches yet.
 
 block js
     if !MITRugby
-        script.
+       script.
             MITRugby = {};
     if user
         script.
             MITRugby.user = !{JSON.stringify(user)};
-    if upcomingMatch
+    if topMatch
         script.
-            MITRugby.currentMatchId = !{JSON.stringify(upcomingMatch.id)};
+            MITRugby.currentMatchId = !{JSON.stringify(topMatch.id)};
 
     script(src='/js/packages.js')
     script(src='/js/attending.js')

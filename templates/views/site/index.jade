@@ -1,6 +1,5 @@
 extends ../../layouts/default
 
-
 //- INCLUDES
 include ../../mixins/post
 include ../../mixins/matchreport
@@ -9,12 +8,13 @@ include ../../mixins/advertisement
 //- INTRO
 block intro
 
+    - var match = activeMatch ? activeMatch : pastMatch;
+
     //- HERO
     if !match
         h2.text-center You've just deployed a new site! Go add some data :)
     else
         article#hero.hero-meetup.hero-meetup--next
-
             //- Intro
             section.hero-intro.hero-intro--hasmask
                 .hero-background
@@ -112,23 +112,29 @@ block intro
 //- BODY
 block content
     .page-content
-        //- Most Recent Match Report
-        if matchReport
-            article.section.section--featured: .container
-                h5.subtitle Most Recent Match Report
-                h2 #{matchReport.title}
-                p MIT
-                    = ' '
-                    = matchReport.mitScore
-                    = ' - '
-                    = matchReport.opponentScore
-                    = ' '
-                    = matchReport.match.opponent
-                    = ' ('
-                    = matchReport.state.toLowerCase()
-                    =')'
+    //- Most Recent Match Report
+    - var matchReport = latestMatchReport.matchreport[0];
 
-                a(href='/matchreports/' + matchReport.key) read more here...
+    if matchReport
+        article.section.section--featured: .container
+            h5.subtitle Most Recent Match Report
+            h2 #{matchReport.title}
+            p MIT
+                = ' '
+                = matchReport.mitScore
+                = ' - '
+                = matchReport.opponentScore
+                = ' '
+                = match.opponent
+                = ' ('
+                = matchReport.state.toLowerCase()
+                =')'
+
+            a(href='/matchreports/' + matchReport.key) read more here...
+    else
+        article.section.section--featured: .container
+            h5.subtitle Most Recent Match Report
+            p There are no recent MIT rugby match reports
 
 //- JS
 block js

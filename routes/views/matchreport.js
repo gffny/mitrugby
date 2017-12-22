@@ -27,7 +27,6 @@ exports = module.exports = function(req, res) {
 
                 locals.matchReport = matchReport;
                 return next();
-
             });
     });
 
@@ -35,7 +34,7 @@ exports = module.exports = function(req, res) {
 
     view.on('init', function(next) {
         Match.model.findOne()
-            .where('_id', locals.matchReport.match)
+            .where('_id', locals.matchReport.matchKey)
             .exec(function(err, match) {
 
                 if (err) {
@@ -45,7 +44,8 @@ exports = module.exports = function(req, res) {
                     return next();
                 }
 
-                locals.matchReport.match = match;
+                match.matchReport = locals.matchReport;
+                locals.match = match;
                 return next();
             });
     });

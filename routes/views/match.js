@@ -55,23 +55,6 @@ exports = module.exports = function(req, res) {
 
     });
 
-    // LOAD an MatchReport
-
-    view.on('init', function(next) {
-
-        if (!req.user || !locals.match) {
-            return next();
-        }
-
-        MatchReport.model.findOne()
-            .where('match', locals.match)
-            .exec(function(err, matchreport) {
-                locals.match.matchreport = matchreport;
-                return next();
-            });
-
-    });
-
     view.render('site/match');
 
 }

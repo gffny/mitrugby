@@ -48,7 +48,6 @@ html
             block footer
                 include ../includes/layout/footer
 
-
         //- MODALS
         block modal
         if !user
@@ -60,9 +59,9 @@ html
     //- JAVASCRIPT
     if match
         script.
-            var MITRugby = {};
+            MITRugby = {};
+            MITRugby.currentMatchId = !{JSON.stringify(match.id)};
             MITRugby.match = !{JSON.stringify(match)};
-            MITRugby.currentMatchId = MITRugby.match._id;
 
     script(src='/js/lib/jquery/jquery-1.10.2.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js')
@@ -79,7 +78,6 @@ html
         script(src='/keystone/js/content/editor.js')
 
     script(src='/js/ui.js')
-
 
     //- ANALYTICS
     include ../includes/layout/analytics

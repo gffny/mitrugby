@@ -2,7 +2,6 @@ var keystone = require('keystone'),
 	moment = require('moment');
 
 var Match = keystone.list('Match'),
-    Attendance = keystone.list('Attendance'),
     MatchReport = keystone.list('MatchReport');
 
 exports = module.exports = function(req, res) {
@@ -12,34 +11,41 @@ exports = module.exports = function(req, res) {
 	
 	locals.section = 'matches';
 	locals.page.title = 'MITRFC | Matches';
+    locals.topMatch = {};
 
 	view.query('upcomingMatch',
         Match.model.findOne()
 			.where('state', 'active')
-			.sort('-meetingTime')
-	, 'attendances[who], matchReports[who]');
+			.sort('-meetingTime'));
 	
 	view.query('pastMatches',
         Match.model.find()
-			.where('state', 'past')
-			.sort('-meetingTime')
-    , 'attendances[who], matchReports[who]');
+            .where('state').ne('draft')
+            .where('kickOffTime').lt(moment().startOf('day'))
+            .sort('-meetingTime'), 'matchreport');
 	
 	view.on('render', function(next) {
-	
-		if (!req.user || !locals.upcomingMatch) {
-            return next();
+
+	    locals.topMatch = locals.upcomingMatch;
+
+	    var additionalMatches = [];
+
+	    var i = 0;
+
+        if (locals.pastMatches) {
+            if (!locals.topMatch) {
+                locals.topMatch = locals.pastMatches.pop();
+                i = 1;
+            }
+            locals.pastMatches.forEach(function(pastMatch) {
+                if (i < 6) {
+                    additionalMatches.push(pastMatch);
+                    i++;
+                }
+            });
         }
-		Attendance.model.findOne()
-			.where('who', req.user._id)
-			.where('match', locals.upcomingMatch)
-			.exec(function(err, rsvp) {
-				locals.rsvpStatus = {
-					rsvped: rsvp ? true : false,
-					attending: rsvp && rsvp.attending ? true : false
-				}
-				return next();
-			});
+        locals.additionalMatches = additionalMatches;
+        return next();
 	});
 	
 	view.render('site/matches');

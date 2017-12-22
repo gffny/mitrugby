@@ -9,27 +9,29 @@ block intro
             p
                 if !user
                     a(href='/join').js-auth-trigger We hope to see you at our next match
-        if previousMatchReport
-            +matchreport(previousMatchReport)
+        if topMatch
+            +matchreport(topMatch)
 
 block content
     .page-content: .container
         .timeline
             .timeline-path
             .timeline-item--offset
-                h6=matchReports.length
-            //each matchReport, i in matchReports
-            //    .timeline-item(class=i % 2 == 1 ? 'timeline-item--even' : 'timeline-item--odd')
-            //        .timeline-item-node
-            //            h6= i.url
-                    //a(href=matchReport.url).timeline-item-inner
-                    //    h6.text-caps.text-danger= matchReport.title
-                    //    //h4= matchReport.match.opponent
-                    //    !=utils.cropString(utils.htmlToText(matchReport.description), 240, '...', true)
-                    //    //- !=utils.htmlToText(matchReport.description)
-
-    if previousMatchReport
-        h3.text-muted BLAH!
+            each pastMatch, i in additionalMatches
+                - var report = pastMatch.matchreport[0];
+                .timeline-item(class=i % 2 == 1 ? 'timeline-item--even' : 'timeline-item--odd')
+                    .timeline-item-node
+                    a(href=report.url).timeline-item-inner
+                        h6.text-caps.text-danger=pastMatch._.kickOffTime.format('dddd, Do MMMM YYYY')
+                        h3=report.title
+                        h5 MIT
+                            =' '
+                            =report.mitScore
+                            =' : '
+                            =report.opponentScore
+                            =' '
+                            =pastMatch.opponent
+                        p!=utils.cropString(utils.htmlToText(report.description), 240, '...', true)
 
 block js
     script(src='/js/packages.js')

@@ -1,46 +1,47 @@
-mixin matchreport(matchreport)
+mixin matchreport(match)
 
-    - var today = new Date();
-
-    .tile.ph-1.pv-1
-        .match-calendar.calendar.hidden-xs.hidden-sm(class=matchreport.match.state == 'past' ? 'calendar--past' : null)
-            .calendar__header=matchreport.match._.meetingTime.format('MMM')
-            .calendar__body
-                .calendar__date=matchreport.match._.meetingTime.format('DD')
-                .calendar__year=matchreport.match._.meetingTime.format('YYYY')
-        .match-content
-            h2.mv-5= matchreport.title
-            if matchreport.mitScore && matchreport.opponentScore
-            h4
-                ='MIT '
-                =matchreport.mitScore
-                =' - '
-                =matchreport.opponentScore
-                =' '
-                =matchreport.match.opponent
-            p
-                strong Date:
-                =' '
-                =matchreport.match._.kickOffTime.format('dddd Do MMM YYYY')
-            p
-                strong Time:
-                =' '
-                =matchreport.match._.kickOffTime.format('h:mma')
-            if matchreport.manOfTheMatch
-                p
-                    strong Man of the Match:
+    if match.matchReport
+        - var matchreport = match.matchReport
+        .tile.ph-1.pv-1
+            .match-calendar.calendar.hidden-xs.hidden-sm(class=match.isPast ? 'calendar--past' : null)
+                .calendar__header=match._.meetingTime.format('MMM')
+                .calendar__body
+                    .calendar__date=match._.meetingTime.format('DD')
+                    .calendar__year=match._.meetingTime.format('YYYY')
+            .match-content
+                h4.text-caps.text-danger=match._.kickOffTime.format('dddd Do MMM YYYY')
+                h2.mv-5=matchreport.title
+                if matchreport.mitScore && matchreport.opponentScore
+                h4
+                    ='MIT '
+                    =matchreport.mitScore
+                    =' - '
+                    =matchreport.opponentScore
                     =' '
-                    =matchreport.manOfTheMatch
-            if matchreport.match.fieldAddress
-                strong Field Address:
-                =' '
-                =matchreport.match.fieldAddress
-
-            if matchreport.description
+                    =match.opponent
+                    =' '
+                    a(href='/matchreports/' + matchreport.key) (link)
                 p
-                p!= matchreport.description
+                    strong Time:
+                    =' '
+                    =match._.kickOffTime.format('h:mma')
+                if matchreport.manOfTheMatch
+                    p
+                        strong Man of the Match:
+                        =' '
+                        =matchreport.manOfTheMatch
+                if match.fieldAddress
+                    strong Field Address:
+                    =' '
+                    =matchreport.match.fieldAddress
 
-            div.addthis_inline_share_toolbox
+                if matchreport.description
+                    p
+                    p!= matchreport.description
+
+                div.addthis_inline_share_toolbox
+    else
+        p No Match Report
 
 block js
     script(src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a1ef411bc4a68d6')
