@@ -13,7 +13,7 @@ import {
 var keystoneTypes = require('./keystoneTypes');
 var keystone = require('keystone');
 var User = keystone.list('User');
-var Organisation = keystone.list('Organisation');
+var Match = keystone.list('Match');
 
 function getMatch (id) {
 	if (id === 'next') {
