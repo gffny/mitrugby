@@ -13,18 +13,20 @@ exports = module.exports = function(req, res) {
 	locals.page.title = 'MITRFC | Matches';
     locals.topMatch = {};
 
-	view.query('upcomingMatch',
-        Match.model.findOne()
-			.where('state', 'active')
-			.sort('-meetingTime'));
-	
-	view.query('pastMatches',
+    view.query('pastMatches',
+
         Match.model.find()
             .where('state').ne('draft')
-            .where('kickOffTime').lt(moment().startOf('day'))
+            .where('kickOffTime').lt(moment().endOf('day'))
             .sort('-meetingTime'), 'matchreport');
-	
-	view.on('render', function(next) {
+
+    view.query('upcomingMatch',
+
+        Match.model.findOne()
+            .where('state').ne('draft')
+            .where('kickOffTime').gt(moment().startOf('day')), 'attendances[who]');
+
+ 	view.on('render', function(next) {
 
 	    locals.topMatch = locals.upcomingMatch;
 
