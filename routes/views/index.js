@@ -31,15 +31,14 @@ exports = module.exports = function(req, res) {
 
         Match.model.findOne()
             .where('state').ne('draft')
-            .where('kickOffTime').lt(moment().startOf('day'))
+            .where('kickOffTime').lt(moment().endOf('day'))
             .sort('-meetingTime'), 'matchreport');
 
     view.query('activeMatch',
 
         Match.model.findOne()
             .where('state').ne('draft')
-            .where('kickOffTime').lt(moment().startOf('day'))
-            .sort('-meetingTime'), 'attendances[who]');
+            .where('kickOffTime').gt(moment().startOf('day')), 'attendances[who]');
 
     // Load an RSVP
 	view.on('init', function(next) {
