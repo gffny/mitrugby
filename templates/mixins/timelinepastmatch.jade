@@ -1,21 +1,19 @@
 mixin timelinepastmatch(match, i)
 
-    - var report = match.matchreport[0];
-
-    if report
+    if match.reportDetail
         .timeline-item(class=i % 2 == 1 ? 'timeline-item--even' : 'timeline-item--odd')
             .timeline-item-node
-            a(href=report.url).timeline-item-inner
+            a(href='/matchreports/'+match.key).timeline-item-inner
                 h6.text-caps.text-danger=match._.kickOffTime.format('dddd, Do MMMM YYYY')
-                h3=report.title
+                h3=match.reportTitle
                 h5 MIT
                     =' '
-                    =report.mitScore
+                    =match.mitScore
                     =' : '
-                    =report.opponentScore
+                    =match.opponentScore
                     =' '
                     =match.opponent
-                p!=utils.cropString(utils.htmlToText(report.description), 240, '...', true)
+                p!=utils.cropString(utils.htmlToText(match.reportDetail), 240, '...', true)
     else
         .timeline-item(class=i % 2 == 1 ? 'timeline-item--even' : 'timeline-item--odd')
             .timeline-item-node

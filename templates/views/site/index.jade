@@ -113,24 +113,22 @@ block intro
 block content
     .page-content
     //- Most Recent Match Report
-    - var matchReport = latestMatchReport.matchreport[0];
-
-    if matchReport
+    if latestMatchReport
         article.section.section--featured: .container
             h5.subtitle Most Recent Match Report
-            h2 #{matchReport.title}
+            h2 #{latestMatchReport.title}
             p MIT
                 = ' '
-                = matchReport.mitScore
+                = latestMatchReport.mitScore
                 = ' - '
-                = matchReport.opponentScore
+                = latestMatchReport.opponentScore
                 = ' '
-                = match.opponent
+                = latestMatchReport.opponent
                 = ' ('
-                = matchReport.state.toLowerCase()
+                = latestMatchReport.result.toLowerCase()
                 =')'
 
-            a(href='/matchreports/' + matchReport.key) read more here...
+            a(href='/matchreports/' + latestMatchReport.key) read more here...
     else
         article.section.section--featured: .container
             h5.subtitle Most Recent Match Report

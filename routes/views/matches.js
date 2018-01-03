@@ -1,8 +1,7 @@
 var keystone = require('keystone'),
 	moment = require('moment');
 
-var Match = keystone.list('Match'),
-    MatchReport = keystone.list('MatchReport');
+var Match = keystone.list('Match');
 
 exports = module.exports = function(req, res) {
 	
@@ -18,7 +17,7 @@ exports = module.exports = function(req, res) {
         Match.model.find()
             .where('state').ne('draft')
             .where('kickOffTime').lt(moment().endOf('day'))
-            .sort('-meetingTime'), 'matchreport');
+            .sort('-meetingTime'));
 
     view.query('upcomingMatch',
 

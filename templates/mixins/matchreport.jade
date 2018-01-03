@@ -1,7 +1,6 @@
 mixin matchreport(match)
 
-    if match.matchReport
-        - var matchreport = match.matchReport
+    if match
         .tile.ph-1.pv-1
             .match-calendar.calendar.hidden-xs.hidden-sm(class=match.isPast ? 'calendar--past' : null)
                 .calendar__header=match._.meetingTime.format('MMM')
@@ -10,34 +9,34 @@ mixin matchreport(match)
                     .calendar__year=match._.meetingTime.format('YYYY')
             .match-content
                 h4.text-caps.text-danger=match._.kickOffTime.format('dddd Do MMM YYYY')
-                h2.mv-5=matchreport.title
-                if matchreport.mitScore && matchreport.opponentScore
+                h2.mv-5=match.reportTitle
+                if match.mitScore && match.opponentScore
                 h4
                     ='MIT '
-                    =matchreport.mitScore
+                    =match.mitScore
                     =' - '
-                    =matchreport.opponentScore
+                    =match.opponentScore
                     =' '
                     =match.opponent
                     =' '
-                    a(href='/matchreports/' + matchreport.key) (link)
+                    a(href='/matchreports/' + match.key) (link)
                 p
                     strong Time:
                     =' '
                     =match._.kickOffTime.format('h:mma')
-                if matchreport.manOfTheMatch
+                if match.manOfTheMatch
                     p
                         strong Man of the Match:
                         =' '
-                        =matchreport.manOfTheMatch
+                        =match.manOfTheMatch
                 if match.fieldAddress
                     strong Field Address:
                     =' '
-                    =matchreport.match.fieldAddress
+                    =match.fieldAddress
 
-                if matchreport.description
+                if match.reportDetail
                     p
-                    p!= matchreport.description
+                    p!= match.reportDetail
 
                 div.addthis_inline_share_toolbox
     else

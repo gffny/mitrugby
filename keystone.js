@@ -87,7 +87,6 @@ keystone.set('email locals', {
 
 keystone.set('nav', {
     'matches': ['matches', 'attendances'],
-    'match-reports': ['match-reports'],
 	'members': ['users'],
     'Enquiries': ['enquiries']
 });

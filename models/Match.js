@@ -32,7 +32,13 @@ Match.add({
 
     description: { type: Types.Html, wysiwyg: true, initial: true },
 
-    matchReport: { type: Types.Relationship, ref: 'MatchReport', hidden: true, required: false }
+    // Denormalising Match Report into Match model since it's a 1:1 relationship
+    result: { type: Types.Select, options: 'Win, Tied, Lost', initial: false, noedit: false },
+    mitScore: { type: Number, required: false, initial: false, default: 0 },
+    opponentScore: { type: Number, required: false, initial: false, default: 0 },
+    manOfTheMatch: { type: String, initial: false },
+    reportTitle: { type: String, initial: false },
+    reportDetail: { type: Types.Html, wysiwyg: true },
 
 });
 
@@ -40,8 +46,6 @@ Match.add({
 // ------------------------------
 
 Match.relationship({ ref: 'Attendance', refPath: 'match', path: 'attendances' });
-Match.relationship({ ref: 'MatchReport', refPath: 'matchKey', path: 'matchreport' });
-
 
 // Virtuals
 // ------------------------------
@@ -69,6 +73,10 @@ Match.schema.virtual('isPast').get(function() {
     return moment().isAfter(moment(this.kickOffTime).add(1, 'day'))
 });
 
+Match.schema.virtual('hasReport').get(function() {
+    return reportDetail;
+});
+
 // Pre Save
 // ------------------------------
 
@@ -79,17 +87,9 @@ Match.schema.pre('save', function(next) {
     if (!match.publishedDate) {
         match.state = 'draft';
     }
-    // match date plus one day is after today, it's a past match
-    else if (moment().isAfter(moment(match.kickOffTime).add(1, 'day'))) {
-        match.state = 'past';
-    }
-    // publish date is after today, it's an active match
-    else if (moment().isAfter(match.publishedDate)) {
+    // otherwise it's active; logic in the template will dictate if something is shown
+    else {
         match.state = 'active';
-    }
-    // publish date is before today, it's a scheduled match
-    else if (moment().isBefore(moment(match.publishedDate))) {
-        match.state = 'scheduled';
     }
     next();
 });
@@ -134,7 +134,7 @@ Match.schema.methods.notifyAttendees = function(req, res, next) {
 
 Match.schema.set('toJSON', {
     transform: function(doc, rtn, options) {
-        return _.pick(doc, '_id', 'opponent', 'meetingTime', 'gameLocationType', 'isPast', 'matchReport');
+        return _.pick(doc, '_id', 'opponent', 'meetingTime', 'gameLocationType', 'isPast');
     }
 });
 

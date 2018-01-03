@@ -18,20 +18,19 @@ block content
             .timeline-path
             .timeline-item--offset
             each pastMatch, i in additionalMatches
-                - var report = pastMatch.matchreport[0];
                 .timeline-item(class=i % 2 == 1 ? 'timeline-item--even' : 'timeline-item--odd')
                     .timeline-item-node
-                    a(href=report.url).timeline-item-inner
+                    a(href='/matchreports/'+pastMatch.key).timeline-item-inner
                         h6.text-caps.text-danger=pastMatch._.kickOffTime.format('dddd, Do MMMM YYYY')
-                        h3=report.title
+                        h3=pastMatch.reportTitle
                         h5 MIT
                             =' '
-                            =report.mitScore
+                            =pastMatch.mitScore
                             =' : '
-                            =report.opponentScore
+                            =pastMatch.opponentScore
                             =' '
                             =pastMatch.opponent
-                        p!=utils.cropString(utils.htmlToText(report.description), 240, '...', true)
+                        p!=utils.cropString(utils.htmlToText(pastMatch.reportDetail), 240, '...', true)
 
 block js
     script(src='/js/packages.js')

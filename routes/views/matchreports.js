@@ -1,8 +1,7 @@
 var keystone = require('keystone'),
 	moment = require('moment');
 
-var MatchReport = keystone.list('MatchReport'),
-    Match = keystone.list('Match');
+var Match = keystone.list('Match');
 
 exports = module.exports = function(req, res) {
 
@@ -16,8 +15,9 @@ exports = module.exports = function(req, res) {
         Match.model.find()
             .where('state').ne('draft')
             .where('kickOffTime').lt(moment().startOf('day'))
-            .where('matchReport').ne(null)
-            .sort('-meetingTime'), 'matchreport');
+            .where('reportDetail').ne('')
+            .where('reportDetail').ne(null)
+            .sort('meetingTime'));
 
     view.on('render', function(next) {
 
@@ -37,21 +37,7 @@ exports = module.exports = function(req, res) {
             locals.topMatch = topMatch;
         }
         locals.additionalMatches = additionalMatches;
-
-        if (locals.topMatch) {
-            //finding MatchReport where id is - locals.topMatch.matchReport
-            MatchReport.model.findOne()
-                .where('_id', locals.topMatch.matchReport)
-                .exec(function(err, matchreport) {
-
-                    locals.topMatch.matchReport = matchreport;
-                    return next();
-                });
-        } else {
-            // no topMatch
-            return next();
-        }
-
+        return next();
     });
 
 	view.render('site/matchreports');

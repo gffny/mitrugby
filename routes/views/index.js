@@ -3,7 +3,6 @@ var keystone = require('keystone'),
 
 var Match = keystone.list('Match'),
     Post = keystone.list('Post'),
-    MatchReport = keystone.list('MatchReport'),
 	Attendance = keystone.list('Attendance');
 
 exports = module.exports = function(req, res) {
@@ -24,15 +23,15 @@ exports = module.exports = function(req, res) {
 
         Match.model.findOne()
             .where('state').ne('draft')
-            .where('matchReport').ne(null)
-            .sort('-meetingTime'), 'matchreport');
+            .where('reportDetail').ne('')
+            .sort('-meetingTime'));
 
     view.query('pastMatch',
 
         Match.model.findOne()
             .where('state').ne('draft')
             .where('kickOffTime').lt(moment().endOf('day'))
-            .sort('-meetingTime'), 'matchreport');
+            .sort('-meetingTime'));
 
     view.query('activeMatch',
 
@@ -47,6 +46,14 @@ exports = module.exports = function(req, res) {
 		    return next();
         }
 
+        var reports = Match.model.find()
+            .where('state').ne('draft')
+            .sort('-meetingTime');
+
+        for (var i = 0; i < reports.length; i++) {
+            console.log("have a match report "+report.reportDetail);
+        }
+
         Attendance.model.findOne()
 			.where('who', req.user._id)
 			.where('match', locals.activeMatch)
@@ -57,6 +64,7 @@ exports = module.exports = function(req, res) {
 				}
 				return next();
 			});
+
 	});
 
     view.on('render', function(next) {

@@ -1,7 +1,6 @@
 var keystone = require('keystone'),
     moment = require('moment'),
     Match = keystone.list('Match'),
-    MatchReport = keystone.list('MatchReport'),
     Attendance = keystone.list('Attendance');
 
 exports = module.exports = function(req, res) {
