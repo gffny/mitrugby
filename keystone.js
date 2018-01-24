@@ -73,17 +73,21 @@ keystone.set('locals', {
 	ga_domain: keystone.get('ga domain')
 });
 
-keystone.set('email locals', {
-	utils: keystone.utils,
-	host: (function() {
-		if (keystone.get('env') === 'staging') {
-		    return 'http://mitrugby.herokuapp.com';
-		} else if (keystone.get('env') === 'production') {
-		    return 'http://rugby.mit.edu';
-        }
-		return (keystone.get('host') || 'http://localhost:') + (keystone.get('port') || '3000');
-	})()
-});
+// keystone.set('email locals', {
+// 	utils: keystone.utils,
+// 	host: (function() {
+// 		if (keystone.get('env') === 'staging') {
+// 		    return 'http://mitrugby.herokuapp.com';
+// 		} else if (keystone.get('env') === 'production') {
+// 		    return 'http://rugby.mit.edu';
+//         }
+// 		return (keystone.get('host') || 'http://localhost:') + (keystone.get('port') || '3000');
+// 	})()
+// });
+
+// keystone.Email.defaults = {};
+// keystone.Email.defaults.templateExt = '.jade';
+// keystone.Email.defaults.templateEngine = require
 
 keystone.set('nav', {
     'matches': ['matches', 'attendances'],

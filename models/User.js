@@ -41,7 +41,7 @@ User.add({
     alsoPlaysFullBack: { type: Boolean, default: false },
 }, 'Profile', {
     isPublic: { type: Boolean, default: true },
-    userType: { type: Types.Select, options: 'CURRENT/ACTIVE PLAYER, ALUMNI, COACH, FRIEND, OTHER', default: true },
+    userType: { type: Types.Select, options: 'CURRENT/ACTIVE PLAYER, ALUMNI, COACH, FRIEND, OTHER', default: 'CURRENT/ACTIVE PLAYER' },
     photo: { type: Types.CloudinaryImage },
 	twitter: { type: String, width: 'short' },
 	bio: { type: Types.Markdown },

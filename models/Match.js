@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var keystone = require('keystone');
+var email = require('keystone-email');
 var moment = require('moment');
 var Types = keystone.Field.Types;
 
@@ -110,6 +111,9 @@ Match.schema.methods.refreshRSVPs = function(callback) {
 }
 
 Match.schema.methods.notifyAttendees = function(req, res, next) {
+    console.log('notifying attendees');
+
+    //TODO - CREATE EMAIL SERVICE AND USE IT TO SEND EMAILS
     var match = this;
     keystone.list('User').model.find().where('notifications.matches', true).exec(function(err, attendees) {
         if (err) return next(err);
@@ -117,17 +121,33 @@ Match.schema.methods.notifyAttendees = function(req, res, next) {
             next();
         } else {
             attendees.forEach(function(attendee) {
-                new keystone.Email('new-match').send({
-                    attendee: attendee,
-                    match: match,
-                    subject: 'New match vs: ' + match.opponent,
-                    to: attendee.email,
+                new email('templates/emails/new-match.jade', {
+                    engine: 'jade',
+                    transport: 'mailgun',
+                }).send({}, {
+                    apiKey: 'key-5d319ab3b813948282371eb4cc2261e2',
+                    domain: 'sandboxa94a443f638540ee8d9e5dfc1625ee3f.mailgun.org',
+                    to: 'gaffney.ie@gmail.com',
                     from: {
-                        name: 'MIT Rugby',
-                        email: 'mitrugby@gmail.com.com'
-                    }
-                }, next);
+                        name: 'Gaffney',
+                        email: 'gaffney.ie@gmail.com',
+                    },
+                    subject: 'Your first KeystoneJS email',
+                }, function() {
+
+                });
+                // new email('templates/emails/new-match.jade').send({
+                //     attendee: attendee,
+                //     match: match,
+                //     subject: 'New match vs: ' + match.opponent,
+                //     to: attendee.email,
+                //     from: {
+                //         name: 'MIT Rugby',
+                //         email: 'mitrugby@gmail.com'
+                //     }
+                // }, next);
             });
+            next();
         }
     });
 }
